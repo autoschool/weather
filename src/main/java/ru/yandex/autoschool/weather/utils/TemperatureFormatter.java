@@ -6,8 +6,8 @@ package ru.yandex.autoschool.weather.utils;
  */
 public class TemperatureFormatter {
 
-    public static String humanise(double temperature, String measure) {
-        String sign = temperature < 0 ? "-" : "+";
-        return String.format("%s%s %s", sign, (int) Math.round(temperature), measure);
+    public static String humanize(double temperature, String measure) {
+        int temp = (int) Math.round(temperature);
+        return String.format("%s%s %s", (temp <= 0 ? "" : "+"), temp, measure);
     }
 }
