@@ -42,6 +42,18 @@ public class WeatherTest {
         assertThat(temperature, endsWith(WeatherMeasure.CELSIUS.getAbbreviation()));
     }
 
+    @Test
+    public void invalidCityTest() {
+        driver.get(baseUrl + "/thereisnosuchcity");
+        String city = driver.findElement(By.className("city")).getText();
+        assertThat(city, notNullValue());
+        assertThat(city, equalTo("Invalid city name"));
+        String temperature = driver.findElement(By.className("temperature")).getText();
+        assertThat(temperature, notNullValue());
+        assertThat(temperature, equalTo("???"));
+        driver.get(baseUrl);
+    }
+
 
 
 }
