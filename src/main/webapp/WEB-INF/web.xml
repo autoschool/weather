@@ -11,7 +11,7 @@
         </init-param>
         <init-param>
             <param-name>jersey.config.servlet.filter.staticContentRegex</param-name>
-            <param-value>/(resources|js|css|images)/.*</param-value>
+            <param-value>/favicon.ico|(resources|js|css|images)/.*</param-value>
         </init-param>
     </filter>
 
