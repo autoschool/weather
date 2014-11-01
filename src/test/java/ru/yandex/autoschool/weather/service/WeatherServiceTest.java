@@ -1,7 +1,6 @@
 package ru.yandex.autoschool.weather.service;
 
 import org.junit.Test;
-import org.mockito.internal.matchers.Any;
 import ru.yandex.autoschool.weather.clients.OpenWeatherClient;
 import ru.yandex.autoschool.weather.clients.OpenWeatherDetails;
 import ru.yandex.autoschool.weather.clients.OpenWeatherStatus;
@@ -23,12 +22,13 @@ public class WeatherServiceTest {
 
     private String city = "Saint Petersburg";
     private String region = "ru";
+    private String scale = "C";
     private double temperature = 280;
 
     @Test
     public void testWeatherService() {
         WeatherService service = new WeatherService(getMock(city, region, temperature));
-        Weather weather = service.getWeather(city, region);
+        Weather weather = service.getWeather(city, region, scale);
 
         assertThat(weather, notNullValue());
         assertThat(weather.getCity(), equalTo(city));
@@ -42,7 +42,6 @@ public class WeatherServiceTest {
         OpenWeatherDetails details = new OpenWeatherDetails();
         details.setCity(city);
         details.setStatus(status);
-
 
         OpenWeatherClient client = mock(OpenWeatherClient.class);
         when(client.getWeather(String.format("%s,%s", city, region))).thenReturn(details);

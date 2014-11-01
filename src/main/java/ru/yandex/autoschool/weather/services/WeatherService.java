@@ -26,18 +26,37 @@ public class WeatherService {
         this.service = service;
     }
 
-    public Weather getWeather(String city, String region) {
+    public Weather getWeather(String city, String region, String scale) {
         String weatherQuery = String.format("%s,%s",
                 Objects.firstNonNull(city, DEFAULT_CITY),
                 Objects.firstNonNull(region, DEFAULT_REGION));
 
         OpenWeatherDetails response = service.getWeather(weatherQuery);
         Weather weather = new Weather();
+
         if (response.getCity() == null) {
             return  weather;
         }
-        weather.setTemperature(WeatherMeasure.KELVIN.toCelsius(response.getStatus().getTemperature()));
-        weather.setMeasure(WeatherMeasure.CELSIUS);
+        
+        if (scale == null) {
+        	scale = Weather.SCALE_TYPE_CELSIUS;
+        }
+        
+        switch(scale) {
+	    	case Weather.SCALE_TYPE_KELVIN: 
+	    		weather.setTemperature(WeatherMeasure.KELVIN,
+        		        				response.getStatus().getTemperature());
+	    		break;
+	    	case Weather.SCALE_TYPE_FAHRENHEIT: 
+	    		weather.setTemperature(WeatherMeasure.FAHRENHEIT,
+        		        WeatherMeasure.KELVIN.toFahrenheit(response.getStatus().getTemperature()));
+	    		break;
+	    	default:
+	    		weather.setTemperature(WeatherMeasure.CELSIUS,
+        		        WeatherMeasure.KELVIN.toCelsius(response.getStatus().getTemperature()));
+	    	    break;
+	    }
+
         weather.setCity(response.getCity());
         return weather;
     }

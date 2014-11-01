@@ -21,17 +21,19 @@ public class TemperatureConverterTest {
 
     private double celsius;
     private double kelvin;
+    private double fahrenheit;
 
-    public TemperatureConverterTest(double celsius, double kelvin) {
+    public TemperatureConverterTest(double celsius, double kelvin, double fahrenheit) {
         this.kelvin = kelvin;
         this.celsius = celsius;
+        this.fahrenheit = fahrenheit;
     }
 
     @Parameterized.Parameters
     public static Collection<Object[]> getTestInput() {
         return Arrays.asList(
-                new Object[]{2, 275.15},
-                new Object[]{0, 273.15}
+                new Object[]{2, 275.15, 35.6},
+                new Object[]{0, 273.15, 32}
         );
     }
 
@@ -43,5 +45,15 @@ public class TemperatureConverterTest {
     @Test
     public void kelvinToCelsiusConverterTest() {
         assertThat(celsius, equalTo(kelvinToCelsius(kelvin)));
+    }
+    
+    @Test
+    public void kelvinTofahrenheitConverterTest() {
+        assertThat(fahrenheit, equalTo(kelvinToFahrenheit(kelvin)));
+    }
+    
+    @Test
+    public void fahrenheitToKelvinConverterTest() {
+        assertThat(kelvin, equalTo(fahrenheitToKelvin(fahrenheit)));
     }
 }

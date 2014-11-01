@@ -7,6 +7,10 @@ import static ru.yandex.autoschool.weather.utils.TemperatureFormatter.humanize;
  * 29/10/14
  */
 public class Weather {
+	
+    public static final String SCALE_TYPE_KELVIN = "K";
+    public static final String SCALE_TYPE_CELSIUS = "C";
+    public static final String SCALE_TYPE_FAHRENHEIT = "F";
 
     private WeatherMeasure measure;
 
@@ -18,16 +22,9 @@ public class Weather {
         return temperature;
     }
 
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
-    }
-
-    public WeatherMeasure getMeasure() {
-        return measure;
-    }
-
-    public void setMeasure(WeatherMeasure measure) {
+    public void setTemperature(WeatherMeasure measure, double temperature) {
         this.measure = measure;
+        this.temperature = temperature;
     }
 
     public String getHumanizedTemperature() {
