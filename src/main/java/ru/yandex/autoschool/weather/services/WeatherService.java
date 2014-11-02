@@ -33,6 +33,8 @@ public class WeatherService {
 
         OpenWeatherDetails response = service.getWeather(weatherQuery);
         Weather weather = new Weather();
+        if(response.getCity() == null)
+            return weather;
         weather.setTemperature(WeatherMeasure.KELVIN.toCelsius(response.getStatus().getTemperature()));
         weather.setMeasure(WeatherMeasure.CELSIUS);
         weather.setCity(response.getCity());
