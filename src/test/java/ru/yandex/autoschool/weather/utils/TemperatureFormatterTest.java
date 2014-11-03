@@ -9,7 +9,7 @@ import java.util.Collection;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
-import static ru.yandex.autoschool.weather.utils.TemperatureFormatter.humanise;
+import static ru.yandex.autoschool.weather.utils.TemperatureFormatter.humanize;
 
 /**
  * eroshenkoam
@@ -18,14 +18,14 @@ import static ru.yandex.autoschool.weather.utils.TemperatureFormatter.humanise;
 @RunWith(Parameterized.class)
 public class TemperatureFormatterTest {
 
-    private String humanisedTemperature;
+    private String humanizedTemperature;
 
     private double temperature;
 
     private String measure;
 
-    public TemperatureFormatterTest(double temperature, String measure, String humanisedTemperature) {
-        this.humanisedTemperature = humanisedTemperature;
+    public TemperatureFormatterTest(double temperature, String measure, String humanizedTemperature) {
+        this.humanizedTemperature = humanizedTemperature;
         this.temperature = temperature;
         this.measure = measure;
     }
@@ -34,13 +34,13 @@ public class TemperatureFormatterTest {
     public static Collection<Object[]> getTestInput() {
         return Arrays.asList(
                 new Object[]{2, "°K", "+2 °K"},
-                new Object[]{0, "°C", "+0 °C"}
+                new Object[]{0, "°C", "0 °C"}
         );
     }
 
     @Test
     public void TemperatureHumanizerTest() {
-        assertThat(humanisedTemperature, equalTo(humanise(temperature, measure)));
+        assertThat(humanizedTemperature, equalTo(humanize(temperature, measure)));
     }
 
 

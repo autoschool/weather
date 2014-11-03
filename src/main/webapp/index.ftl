@@ -56,7 +56,7 @@
             <div class="temperature">
                 <span class="pull-right">
                 <#if model??>
-                ${model.getHumanisedTemperature()}
+                ${model.getHumanizedTemperature()}
                 <#else>???</#if>
                 </span>
             </div>

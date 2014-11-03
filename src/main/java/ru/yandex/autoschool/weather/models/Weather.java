@@ -1,6 +1,6 @@
 package ru.yandex.autoschool.weather.models;
 
-import static ru.yandex.autoschool.weather.utils.TemperatureFormatter.humanise;
+import static ru.yandex.autoschool.weather.utils.TemperatureFormatter.humanize;
 
 /**
  * eroshenkoam
@@ -30,8 +30,8 @@ public class Weather {
         this.measure = measure;
     }
 
-    public String getHumanisedTemperature() {
-        return humanise(temperature, measure.getAbbreviation());
+    public String getHumanizedTemperature() {
+        return humanize(temperature, measure.getAbbreviation());
     }
 
     public String getCity() {
