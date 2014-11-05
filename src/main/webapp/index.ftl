@@ -45,7 +45,7 @@
             <div class="city">
                 <span class="pull-right">
                 <#if model??>
-                ${model.getCity()}
+                ${model.getCity()!"Invalid city name"}
                 <#else>???</#if>
                 </span>
             </div>
@@ -55,7 +55,7 @@
         <div class="col-xs-6 col-xs-offset-6">
             <div class="temperature">
                 <span class="pull-right">
-                <#if model??>
+                <#if model?? && model.getCity()??>
                 ${model.getHumanizedTemperature()}
                 <#else>???</#if>
                 </span>
