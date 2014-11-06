@@ -34,7 +34,8 @@ public class TemperatureFormatterTest {
     public static Collection<Object[]> getTestInput() {
         return Arrays.asList(
                 new Object[]{2, "°K", "+2 °K"},
-                new Object[]{0, "°C", "0 °C"}
+                new Object[]{0, "°C", "0 °C"},
+                new Object[]{-100, "°F", "-100 °F"}
         );
     }
 
@@ -42,6 +43,4 @@ public class TemperatureFormatterTest {
     public void TemperatureHumanizerTest() {
         assertThat(humanizedTemperature, equalTo(humanize(temperature, measure)));
     }
-
-
 }

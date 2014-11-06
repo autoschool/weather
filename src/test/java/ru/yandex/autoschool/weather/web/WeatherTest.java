@@ -55,7 +55,4 @@ public class WeatherTest {
         assertThat(temperature, equalTo("???"));
         driver.get(baseUrl);
     }
-
-
-
 }

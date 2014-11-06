@@ -23,25 +23,33 @@ public class IndexResource {
     @Path("/")
     @Template(name = "/index.ftl")
     public Weather getIndex() {
-        return getWeather(null, null);
+        return getWeather(null, null, null);
     }
 
     @GET
     @Path("/{city}")
     @Template(name = "/index.ftl")
     public Weather getIndex(@PathParam("city") String city) {
-        return getWeather(city, null);
+        return getWeather(city, null, null);
     }
 
     @GET
     @Path("/{city}/{region}")
     @Template(name = "/index.ftl")
     public Weather getIndex(@PathParam("city") String city, @PathParam("region") String region) {
-        return getWeather(city, region);
+        return getWeather(city, region, null);
+    }
+    
+    @GET
+    @Path("/{city}/{region}/{scale}")
+    @Template(name = "/index.ftl")
+    public Weather getIndex(@PathParam("city") String city, @PathParam("region") String region,
+    											@PathParam("scale") String scale) {
+        return getWeather(city, region, scale);
     }
 
-    private static Weather getWeather(String city, String region) {
+    private static Weather getWeather(String city, String region, String scale) {
         WeatherService weatherService = new WeatherService();
-        return weatherService.getWeather(city, region);
+        return weatherService.getWeather(city, region, scale);
     }
 }
