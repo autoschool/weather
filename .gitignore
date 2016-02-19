@@ -1,0 +1,9 @@
+# IDEA Files
+.idea
+*.iml
+
+# Maven
+target
+
+# PhantomJs
+phantomjsdriver.log
