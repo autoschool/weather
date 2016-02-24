@@ -31,7 +31,7 @@ public class WeatherService {
                 Objects.firstNonNull(city, DEFAULT_CITY),
                 Objects.firstNonNull(region, DEFAULT_REGION));
 
-        OpenWeatherDetails response = service.getWeather(weatherQuery);
+        OpenWeatherDetails response = service.getWeather(weatherQuery, OpenWeatherClient.APP_ID);
         Weather weather = new Weather();
 
         if (response.getCity() == null) {

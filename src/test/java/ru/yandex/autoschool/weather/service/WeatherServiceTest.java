@@ -44,7 +44,7 @@ public class WeatherServiceTest {
         details.setStatus(status);
 
         OpenWeatherClient client = mock(OpenWeatherClient.class);
-        when(client.getWeather(String.format("%s,%s", city, region))).thenReturn(details);
+        when(client.getWeather(String.format("%s,%s", city, region),OpenWeatherClient.APP_ID)).thenReturn(details);
         return client;
     }
 }
