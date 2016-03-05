@@ -22,6 +22,4 @@ public class ServicesBinder implements Feature {
         });
         return true;
     }
-
-
 }

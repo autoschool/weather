@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
  * eroshenkoam
  * 29/10/14
  */
-@Path("/api")
+@Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 public class IndexResource {
 
