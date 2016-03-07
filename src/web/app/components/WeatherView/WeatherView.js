@@ -1,10 +1,10 @@
 import './WeatherView.scss'
 import Weather from '../../data/Weather';
-import {View} from 'backbone'
+import {ItemView} from 'backbone.marionette'
 import _ from 'underscore'
 import template from './WeatherView.html'
 
-export default class WeatherView extends View {
+export default class WeatherView extends ItemView {
 
     initialize() {
         this.model = new Weather();
