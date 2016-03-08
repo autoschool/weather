@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:ns="urn:clients.weather.autoschool.yandex.ru"
+           targetNamespace="urn:clients.weather.autoschool.yandex.ru">
+
+    <!-- Code Tree -->
+
+    <xs:element name="openWeatherResponse" type="ns:OpenWeatherResponse"/>
+    <xs:complexType name="OpenWeatherResponse">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="city" type="xs:string"/>
+            <xs:element name="base" type="xs:string"/>
+            <xs:element name="details" type="ns:OpenWeatherDetails" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="temperature" type="ns:OpenWeatherTemperature"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="OpenWeatherDetails">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="icon" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="OpenWeatherTemperature">
+        <xs:sequence>
+            <xs:element name="value" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

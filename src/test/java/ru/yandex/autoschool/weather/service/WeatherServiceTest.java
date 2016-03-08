@@ -2,8 +2,8 @@ package ru.yandex.autoschool.weather.service;
 
 import org.junit.Test;
 import ru.yandex.autoschool.weather.clients.OpenWeatherClient;
-import ru.yandex.autoschool.weather.clients.OpenWeatherDetails;
-import ru.yandex.autoschool.weather.clients.OpenWeatherStatus;
+import ru.yandex.autoschool.weather.clients.OpenWeatherResponse;
+import ru.yandex.autoschool.weather.clients.OpenWeatherTemperature;
 import ru.yandex.autoschool.weather.models.Weather;
 import ru.yandex.autoschool.weather.models.WeatherMeasure;
 import ru.yandex.autoschool.weather.services.WeatherService;
@@ -37,14 +37,15 @@ public class WeatherServiceTest {
 
     public static OpenWeatherClient getMock(String city, String region, double temperature) {
 
-        OpenWeatherStatus status = new OpenWeatherStatus();
-        status.setTemperature(temperature);
-        OpenWeatherDetails details = new OpenWeatherDetails();
-        details.setCity(city);
-        details.setStatus(status);
+        OpenWeatherResponse response = new OpenWeatherResponse();
+        response.withCity(city)
+                .withTemperature(
+                        new OpenWeatherTemperature()
+                                .withValue(temperature)
+                );
 
         OpenWeatherClient client = mock(OpenWeatherClient.class);
-        when(client.getWeather(String.format("%s,%s", city, region),OpenWeatherClient.APP_ID)).thenReturn(details);
+        when(client.getWeather(String.format("%s,%s", city, region), OpenWeatherClient.APP_ID)).thenReturn(response);
         return client;
     }
 }
