@@ -9,3 +9,4 @@ target
 phantomjsdriver.log
 
 node_modules
+node
