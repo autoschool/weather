@@ -7,3 +7,5 @@ target
 
 # PhantomJs
 phantomjsdriver.log
+
+node_modules
