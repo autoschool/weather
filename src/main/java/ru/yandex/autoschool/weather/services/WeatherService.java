@@ -1,7 +1,7 @@
 package ru.yandex.autoschool.weather.services;
 
 import ru.yandex.autoschool.weather.clients.OpenWeatherClient;
-import ru.yandex.autoschool.weather.clients.OpenWeatherDetails;
+import ru.yandex.autoschool.weather.clients.OpenWeatherResponse;
 import ru.yandex.autoschool.weather.models.Weather;
 import ru.yandex.autoschool.weather.models.WeatherMeasure;
 import ru.yandex.autoschool.weather.utils.ClientsBuilder;
@@ -32,7 +32,7 @@ public class WeatherService {
                 firstNonNull(city, DEFAULT_CITY),
                 firstNonNull(region, DEFAULT_REGION));
 
-        OpenWeatherDetails response = service.getWeather(weatherQuery, OpenWeatherClient.APP_ID);
+        OpenWeatherResponse response = service.getWeather(weatherQuery, OpenWeatherClient.APP_ID);
         Weather weather = new Weather();
 
         if (response.getCity() == null) {
@@ -43,18 +43,18 @@ public class WeatherService {
             scale = Weather.SCALE_TYPE_CELSIUS;
         }
 
+        double temperature = response.getTemperature().getValue();
+
         switch (scale) {
             case Weather.SCALE_TYPE_KELVIN:
-                weather.setTemperature(WeatherMeasure.KELVIN,
-                        response.getStatus().getTemperature());
+                weather.setTemperature(WeatherMeasure.KELVIN, temperature);
                 break;
             case Weather.SCALE_TYPE_FAHRENHEIT:
-                weather.setTemperature(WeatherMeasure.FAHRENHEIT,
-                        WeatherMeasure.KELVIN.toFahrenheit(response.getStatus().getTemperature()));
+                weather.setTemperature(WeatherMeasure.FAHRENHEIT, temperature);
                 break;
             default:
                 weather.setTemperature(WeatherMeasure.CELSIUS,
-                        WeatherMeasure.KELVIN.toCelsius(response.getStatus().getTemperature()));
+                        WeatherMeasure.KELVIN.toCelsius(temperature));
                 break;
         }
 

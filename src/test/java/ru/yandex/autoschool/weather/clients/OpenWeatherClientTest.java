@@ -15,10 +15,10 @@ public class OpenWeatherClientTest {
     @Test
     public void testOpenWeatherClientDetails() {
         OpenWeatherClient client = ClientsBuilder.getOpenWeatherService();
-        OpenWeatherDetails details = client.getWeather("Saint Petersburg,ru", OpenWeatherClient.APP_ID);
+        OpenWeatherResponse weatherResponse = client.getWeather("Saint Petersburg,ru", OpenWeatherClient.APP_ID);
 
-        assertThat(details, notNullValue());
-        assertThat(details.getStatus(), notNullValue());
-        assertThat(details.getStatus().getTemperature(), notNullValue());
+        assertThat(weatherResponse, notNullValue());
+        assertThat(weatherResponse.getTemperature(), notNullValue());
+        assertThat(weatherResponse.getTemperature().getValue(), notNullValue());
     }
 }
