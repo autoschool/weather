@@ -4,8 +4,6 @@
            xmlns:ns="urn:clients.weather.autoschool.yandex.ru"
            targetNamespace="urn:clients.weather.autoschool.yandex.ru">
 
-    <!-- Code Tree -->
-
     <xs:element name="openWeatherResponse" type="ns:OpenWeatherResponse"/>
     <xs:complexType name="OpenWeatherResponse">
         <xs:sequence>
