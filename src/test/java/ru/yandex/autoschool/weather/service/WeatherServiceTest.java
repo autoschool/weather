@@ -5,7 +5,6 @@ import ru.yandex.autoschool.weather.clients.OpenWeatherClient;
 import ru.yandex.autoschool.weather.clients.OpenWeatherResponse;
 import ru.yandex.autoschool.weather.clients.OpenWeatherTemperature;
 import ru.yandex.autoschool.weather.models.Weather;
-import ru.yandex.autoschool.weather.models.WeatherMeasure;
 import ru.yandex.autoschool.weather.services.WeatherService;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -22,17 +21,15 @@ public class WeatherServiceTest {
 
     private String city = "Saint Petersburg";
     private String region = "ru";
-    private String scale = "C";
     private double temperature = 280;
 
     @Test
     public void testWeatherService() {
         WeatherService service = new WeatherService(getMock(city, region, temperature));
-        Weather weather = service.getWeather(city, region, scale);
+        Weather weather = service.getWeather(city, region);
 
         assertThat(weather, notNullValue());
         assertThat(weather.getCity(), equalTo(city));
-        assertThat(weather.getTemperature(), equalTo(WeatherMeasure.KELVIN.toCelsius(temperature)));
     }
 
     public static OpenWeatherClient getMock(String city, String region, double temperature) {
