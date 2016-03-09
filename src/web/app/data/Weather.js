@@ -9,6 +9,7 @@ export default class Weather extends Model {
     defaults() {
         return {
             city: '',
+            tempindex: 0,
             temperatures: [{
                 unit: '',
                 value: 0
@@ -21,5 +22,9 @@ export default class Weather extends Model {
         let options = opts || {};
         options.data = {city, region};
         super.fetch(options);
+    }
+    
+    changeTemperature() {
+        this.set({'tempindex': (this.get('tempindex') + 1) % this.get('temperatures').length})
     }
 }
