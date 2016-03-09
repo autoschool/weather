@@ -8,6 +8,10 @@
   },
   "author": "lanwen",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.yandex-team.ru/qatools/weather"
+  },
   "devDependencies": {
     "babel-core": "^6.6.5",
     "babel-loader": "^6.2.4",
@@ -37,6 +41,7 @@
     "bootstrap-sass": "^3.3.6",
     "font-awesome": "^4.5.0",
     "jquery": "^2.2.1",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "urijs": "^1.17.1"
   }
 }

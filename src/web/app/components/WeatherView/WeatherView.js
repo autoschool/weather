@@ -8,9 +8,9 @@ import template from './WeatherView.html'
 
 export default class WeatherView extends ItemView {
 
-    constructor() {
+    constructor({city, region} = {}) {
         super({
-            model: new Weather()
+            model: new Weather({city, region})
         });
     }
 
