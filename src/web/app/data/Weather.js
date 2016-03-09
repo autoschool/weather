@@ -8,7 +8,10 @@ export default class Weather extends Model {
     defaults() {
         return {
             city: '',
-            humanizedTemperature: ''
+            temperatures: [{
+                unit: '',
+                value: 0
+            }]
         }
     }
 }

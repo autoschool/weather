@@ -27,9 +27,7 @@ public class IndexResource {
     public Weather getIndex(@DefaultValue(WeatherService.DEFAULT_CITY)
                             @QueryParam("city") String city,
                             @DefaultValue(WeatherService.DEFAULT_REGION)
-                            @QueryParam("region") String region,
-                            @DefaultValue(Weather.SCALE_TYPE_CELSIUS)
-                            @QueryParam("scale") String scale) {
-        return weather.getWeather(city, region, scale);
+                            @QueryParam("region") String region) {
+        return weather.getWeather(city, region);
     }
 }

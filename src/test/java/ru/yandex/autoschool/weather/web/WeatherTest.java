@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import ru.yandex.autoschool.weather.models.WeatherMeasure;
 import ru.yandex.autoschool.weather.services.WeatherService;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -41,7 +40,7 @@ public class WeatherTest {
     public void temperatureByDefaultInCelsius() {
         String temperature = driver.findElement(By.className("temperature")).getText();
         assertThat(temperature, notNullValue());
-        assertThat(temperature, endsWith(WeatherMeasure.CELSIUS.getAbbreviation()));
+        assertThat(temperature, endsWith("°C"));
     }
 
     @Test

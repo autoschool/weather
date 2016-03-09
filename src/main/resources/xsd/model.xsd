@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:ns="urn:models.weather.autoschool.yandex.ru"
+           targetNamespace="urn:models.weather.autoschool.yandex.ru">
+
+    <xs:element name="weather" type="ns:Weather"/>
+    <xs:complexType name="Weather">
+        <xs:sequence>
+            <xs:element name="city" type="xs:string"/>
+            <xs:element name="temperatures" type="ns:Temperature" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Temperature">
+        <xs:sequence>
+            <xs:element name="unit" type="xs:string"/>
+            <xs:element name="value" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
