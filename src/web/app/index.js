@@ -1,11 +1,12 @@
 'use strict';
+import '../node_modules/weather-icons/sass/weather-icons.scss'
 import './index.scss'
 import $ from 'jquery';
 import {Application} from 'backbone.marionette'
 import WeatherView from './components/WeatherView/WeatherView'
 import router from './routes';
 import Backbone from 'backbone';
-import URI from 'urijs'
+import url from 'url'
 
 const App = new Application({
     regions: {
@@ -16,7 +17,7 @@ const App = new Application({
 App.on('start', () => {
 
     router.on('route:default', (path, query) => {
-        App.content.show(new WeatherView(new URI('?' + query).query(true)));
+        App.content.show(new WeatherView(url.parse('?' + query, true).query));
     });
     
 });

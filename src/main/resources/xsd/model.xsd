@@ -8,6 +8,8 @@
     <xs:complexType name="Weather">
         <xs:sequence>
             <xs:element name="city" type="xs:string"/>
+            <xs:element name="daypart" type="ns:Daypart"/>
+            <xs:element name="weathercode" type="xs:int"/>
             <xs:element name="temperatures" type="ns:Temperature" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
@@ -18,5 +20,12 @@
             <xs:element name="value" type="xs:double"/>
         </xs:sequence>
     </xs:complexType>
+
+    <xs:simpleType name="Daypart" final="restriction" >
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="day" />
+            <xs:enumeration value="night" />
+        </xs:restriction>
+    </xs:simpleType>
 
 </xs:schema>

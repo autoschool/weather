@@ -1,14 +1,14 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-6">
-            <i class="fa fa-10x fa-cloud fa-white"></i>
+            <i class="wi fa-10x wi-owm-<%= daypart.toLowerCase() %>-<%= weathercode %> fa-white"></i>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-6 col-xs-offset-6">
             <div class="weather__city">
                 <span class="pull-right">
-                <%= city %>
+                    <%= city %>
                 </span>
             </div>
         </div>
@@ -17,7 +17,7 @@
         <div class="col-xs-6 col-xs-offset-6">
             <div class="weather__temperature">
                 <span class="pull-right">
-                    <%= Number(temperatures[tempindex].value).toFixed(2) %> <%= temperatures[tempindex].unit %>
+                    <%= Number(temperatures[tempindex].value).toFixed(1) %> <%= temperatures[tempindex].unit %>
                 </span>
             </div>
         </div>
