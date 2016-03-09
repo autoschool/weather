@@ -1,4 +1,5 @@
 'use strict';
+import './index.scss'
 import $ from 'jquery';
 import {Application} from 'backbone.marionette'
 import WeatherView from './components/WeatherView/WeatherView'
@@ -11,7 +12,7 @@ const App = new Application({
 });
 
 App.on('start', () => {
-    let view = new WeatherView();
+    const view = new WeatherView();
 
     App.content.show(view);
 });

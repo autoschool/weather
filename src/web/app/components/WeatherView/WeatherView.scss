@@ -1,19 +1,3 @@
-body {
-  background-color: saddlebrown;
-}
-
-.fa-xs {
-  font-size: 7em;
-}
-
-.fa-md {
-  font-size: 20em;
-}
-
-.fa-white {
-  color: white;
-}
-
 .weather {
   &__city {
     font-size: 3em;
@@ -24,4 +8,16 @@ body {
     font-size: 10em;
     color: white;
   }
+}
+
+.fa-xs {
+  font-size: 7em;
+}
+
+.fa-10x {
+  font-size: 20em;
+}
+
+.fa-white {
+  color: white;
 }
