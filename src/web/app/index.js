@@ -3,7 +3,9 @@ import './index.scss'
 import $ from 'jquery';
 import {Application} from 'backbone.marionette'
 import WeatherView from './components/WeatherView/WeatherView'
-
+import router from './routes';
+import Backbone from 'backbone';
+import URI from 'urijs'
 
 const App = new Application({
     regions: {
@@ -12,11 +14,14 @@ const App = new Application({
 });
 
 App.on('start', () => {
-    const view = new WeatherView();
 
-    App.content.show(view);
+    router.on('route:default', (path, query) => {
+        App.content.show(new WeatherView(new URI('?' + query).query(true)));
+    });
+    
 });
 
 App.start();
+Backbone.history.start();
 
 window.jQuery = $;
