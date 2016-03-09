@@ -1,12 +1,17 @@
 package ru.yandex.autoschool.weather.services;
 
 import ru.yandex.autoschool.weather.clients.OpenWeatherClient;
+import ru.yandex.autoschool.weather.clients.OpenWeatherDetails;
 import ru.yandex.autoschool.weather.clients.OpenWeatherResponse;
+import ru.yandex.autoschool.weather.models.Daypart;
 import ru.yandex.autoschool.weather.models.Temperature;
 import ru.yandex.autoschool.weather.models.Weather;
 import ru.yandex.autoschool.weather.utils.ClientsBuilder;
 
+import static java.time.Instant.ofEpochSecond;
 import static jersey.repackaged.com.google.common.base.MoreObjects.firstNonNull;
+import static ru.yandex.autoschool.weather.models.Daypart.DAY;
+import static ru.yandex.autoschool.weather.models.Daypart.NIGHT;
 import static ru.yandex.autoschool.weather.utils.TemperatureConverter.kelvinToCelsius;
 import static ru.yandex.autoschool.weather.utils.TemperatureConverter.kelvinToFahrenheit;
 
@@ -36,14 +41,16 @@ public class WeatherService {
 
         OpenWeatherResponse response = service.getWeather(weatherQuery, OpenWeatherClient.APP_ID);
 
-        String responseCity = response.getCity();
-        if (responseCity == null) {
-            return new Weather();
-        }
-
         double responseTemperature = response.getTemperature().getValue();
         return new Weather()
-                .withCity(responseCity)
+                .withCity(response.getCity())
+                .withWeathercode(response.getDetails().stream()
+                        .findFirst().orElse(new OpenWeatherDetails().withId(0)).getId())
+                .withDaypart(
+                        ofEpochSecond(response.getDt()).isAfter(ofEpochSecond(response.getSys().getSunset())) 
+                        ? NIGHT 
+                        : DAY
+                )
                 .withTemperatures(
                         new Temperature().withUnit("°C").withValue(kelvinToCelsius(responseTemperature)),
                         new Temperature().withUnit("°K").withValue(responseTemperature),

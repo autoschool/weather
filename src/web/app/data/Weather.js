@@ -10,6 +10,8 @@ export default class Weather extends Model {
         return {
             city: '',
             tempindex: 0,
+            daypart: 'day',
+            weathercode: '800',
             temperatures: [{
                 unit: '',
                 value: 0

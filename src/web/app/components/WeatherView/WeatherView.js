@@ -20,15 +20,15 @@ export default class WeatherView extends ItemView {
 
     @onModel('change')
     render() {
-        this.$el.html(this.template()(this.model.attributes))
+        super.render()
     }
-    
+
     @on('click .weather__temperature')
     nextTemp() {
         this.model.changeTemperature();
     }
 
-    template() {
-        return _.template(template)
+    template(serialized) {
+        return _.template(template)(serialized)
     }
 } 
