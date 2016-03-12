@@ -8,6 +8,10 @@ class AppRouter extends Router {
             }
         });
     }
+
+    toCity(city) {
+        this.navigate(`?city=${city}`, {trigger: true})
+    }
 }
 
 export default new AppRouter();

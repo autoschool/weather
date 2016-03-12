@@ -5,7 +5,7 @@ import ru.yandex.autoschool.weather.clients.OpenWeatherClient;
 import ru.yandex.autoschool.weather.clients.OpenWeatherResponse;
 import ru.yandex.autoschool.weather.clients.OpenWeatherTemperature;
 import ru.yandex.autoschool.weather.models.Weather;
-import ru.yandex.autoschool.weather.services.WeatherService;
+import ru.yandex.autoschool.weather.services.OpenWeatherService;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -25,7 +25,7 @@ public class WeatherServiceTest {
 
     @Test
     public void testWeatherService() {
-        WeatherService service = new WeatherService(getMock(city, region, temperature));
+        OpenWeatherService service = new OpenWeatherService(getMock(city, region, temperature));
         Weather weather = service.getWeather(city, region);
 
         assertThat(weather, notNullValue());
