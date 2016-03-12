@@ -1,6 +1,7 @@
 package ru.yandex.autoschool.weather.resources;
 
 import ru.yandex.autoschool.weather.models.Weather;
+import ru.yandex.autoschool.weather.services.OpenWeatherService;
 import ru.yandex.autoschool.weather.services.WeatherService;
 
 import javax.inject.Inject;
@@ -34,9 +35,9 @@ public class IndexResource {
 
     @GET
     @Path("/weather")
-    public Weather getIndex(@DefaultValue(WeatherService.DEFAULT_CITY)
+    public Weather getIndex(@DefaultValue(OpenWeatherService.DEFAULT_CITY)
                             @QueryParam("city") String city,
-                            @DefaultValue(WeatherService.DEFAULT_REGION)
+                            @DefaultValue(OpenWeatherService.DEFAULT_REGION)
                             @QueryParam("region") String region) {
         return weather.getWeather(city, region);
     }

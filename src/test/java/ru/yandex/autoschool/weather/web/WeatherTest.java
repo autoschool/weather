@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import ru.yandex.autoschool.weather.services.WeatherService;
+import ru.yandex.autoschool.weather.services.OpenWeatherService;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -33,7 +33,7 @@ public class WeatherTest {
     public void cityByDefaultTest() {
         String city = driver.findElement(By.className("city")).getText();
         assertThat(city, notNullValue());
-        assertThat(city, equalTo(WeatherService.DEFAULT_CITY));
+        assertThat(city, equalTo(OpenWeatherService.DEFAULT_CITY));
     }
 
     @Test

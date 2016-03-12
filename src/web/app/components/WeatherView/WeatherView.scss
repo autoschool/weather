@@ -1,12 +1,22 @@
 .weather {
+  &__input {
+    font-size: 1em;
+    background-color: saddlebrown;
+    border-style: none;
+    width: 100%;
+    text-align: right;
+  }
+  
   &__city {
     font-size: 3em;
     color: burlywood;
+    cursor: pointer;
   }
 
   &__temperature {
     font-size: 9em;
     color: white;
+    cursor: pointer;
   }
 }
 

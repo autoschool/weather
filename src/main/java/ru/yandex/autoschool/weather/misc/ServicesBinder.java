@@ -1,6 +1,8 @@
 package ru.yandex.autoschool.weather.misc;
 
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
+import ru.yandex.autoschool.weather.services.OpenWeatherService;
+import ru.yandex.autoschool.weather.services.StaticWeatherService;
 import ru.yandex.autoschool.weather.services.WeatherService;
 
 import javax.ws.rs.core.Feature;
@@ -17,7 +19,8 @@ public class ServicesBinder implements Feature {
         context.register(new AbstractBinder() {
             @Override
             protected void configure() {
-                bind(WeatherService.class).to(WeatherService.class);
+//                bind(OpenWeatherService.class).to(WeatherService.class);
+                bind(StaticWeatherService.class).to(WeatherService.class);
             }
         });
         return true;

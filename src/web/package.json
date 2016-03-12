@@ -4,6 +4,8 @@
   "description": "test app",
   "main": "webpack.config.js",
   "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "lanwen",
@@ -11,7 +13,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.yandex-team.ru/qatools/weather"
-  },
+  },                          
   "devDependencies": {
     "babel-core": "^6.6.5",
     "babel-loader": "^6.2.4",
