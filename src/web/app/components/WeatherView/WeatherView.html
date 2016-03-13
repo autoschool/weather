@@ -5,6 +5,10 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-xs-6 col-xs-offset-6" id="suggest">
+        </div>
+    </div>
+    <div class="row">
         <div class="col-xs-6 col-xs-offset-6">
             <div class="weather__city">
                 <span class="pull-right">
@@ -17,7 +21,7 @@
         <div class="col-xs-6 col-xs-offset-6">
             <div class="weather__temperature">
                 <span class="pull-right">
-                    <%= Number(temperatures[tempindex].value).toFixed(1) %> <%= temperatures[tempindex].unit %>
+                    <%= humanizedTemperature() %> <%= temperatures[tempindex].unit %>
                 </span>
             </div>
         </div>

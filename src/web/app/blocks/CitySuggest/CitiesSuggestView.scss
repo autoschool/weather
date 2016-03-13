@@ -1,0 +1,17 @@
+.city-suggest {
+  
+}
+
+.city {
+  width: 100%;
+  text-align: right;
+  &__name {
+    color: wheat;
+    font-weight: lighter;
+    cursor: pointer;
+    &:hover {
+      color: white;
+      text-decoration: none;
+    }
+  }
+}

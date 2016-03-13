@@ -2,9 +2,7 @@ import {Model} from 'backbone'
 import _ from 'underscore'
 
 export default class Weather extends Model {
-    urlRoot() {
-        return '/api/weather';
-    }
+    urlRoot = '/api/weather';
 
     defaults() {
         return {
@@ -23,7 +21,8 @@ export default class Weather extends Model {
         let {city, region} = this.attributes;
         let options = opts || {};
         options.data = {city, region};
-        super.fetch(options);
+        this.set('updated', true);
+        return super.fetch(options);
     }
     
     changeTemperature() {
