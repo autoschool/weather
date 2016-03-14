@@ -4,14 +4,22 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-    entry: [
-        'bootstrap-loader/extractStyles',
-        'font-awesome-loader!./font-awesome.config.js',
-        './app/index.js'
-    ],
+    entry: {
+        main: [
+            'bootstrap-loader/extractStyles',
+            './app/index.js'
+        ],
+        vendor: [
+            'url',
+            'backbone',
+            'backbone.marionette',
+            'jquery' 
+        ]
+    },
     output: {
         path: __dirname + '/../../target/www/',
-        filename: 'bundle.js'
+        filename: '[name].js',
+        chunkFilename: '[id].js'
     },
     module: {
         loaders: [
@@ -38,7 +46,8 @@ module.exports = {
             template: './app/index.tpl.html',
             inject: 'body'
         }),
-        new ExtractTextPlugin('styles.css', {allChunks: true})
+        new ExtractTextPlugin('styles.css', {allChunks: true}),
+        new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js')
     ],
 
     devServer: {

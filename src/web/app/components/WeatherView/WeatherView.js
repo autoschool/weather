@@ -2,22 +2,34 @@ import './WeatherView.scss'
 
 import {onModel, on} from 'backbone-decorators'
 import Weather from '../../data/Weather';
-import {ItemView} from 'backbone.marionette'
+import {LayoutView} from 'backbone.marionette'
 import _ from 'underscore'
 import template from './WeatherView.html'
 import $ from 'jquery'
 import router from '../../routes'
+import Suggest from '../../blocks/CitySuggest/CitiesSuggestView'
 
-export default class WeatherView extends ItemView {
+export default class WeatherView extends LayoutView {
 
     constructor({city, region} = {}) {
         super({
-            model: new Weather({city, region})
+            model: new Weather({city, region}),
+            regions: {
+                suggest: '#suggest'
+            },
+            templateHelpers: {
+                humanizedTemperature: function () {
+                    return Number(this.temperatures[this.tempindex].value).toFixed(1)
+                }
+            }
         });
     }
 
-    initialize() {
-        this.model.fetch();
+    onRender() {
+        let updated = this.model.get('updated');
+        if (!updated) {
+            this.model.fetch();
+        }
     }
 
     @onModel('change')
@@ -46,16 +58,29 @@ export default class WeatherView extends ItemView {
 
         editableName.find('input')
             .focus()
-            .val(name);
+            .val(name)
+            .select();
     }
 
-    @on('blur .weather__input')
     applyNewName(e) {
         var target = $(e.target);
         if (target.val() === this.model.get('city')) {
             this.render();
         }
-        
+
         router.toCity(target.val());
+    }
+
+    @on('keypress .weather__input')
+    updateSuggest(e) {
+        if (e.keyCode === 13) {
+            this.applyNewName(e);
+        }
+        var query = $(e.target).val();
+        if (query.length > 1) {
+            this.suggest.show(new Suggest(query));
+        } else {
+            this.suggest.empty();
+        }
     }
 } 
