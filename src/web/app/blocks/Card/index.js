@@ -21,17 +21,13 @@ export default class Card extends LayoutView {
     @region('.card-actions')
     actions;
 
-    constructor(options = {}) {
-        super({
-            options
-        });
+    template = _.template(template);
+
+    constructor(options) {
+        super(options);
         this.templateHelpers = {
             actionsEnabled: true
         }
-    }
-
-    template(serialized) {
-        return _.template(template)(serialized)
     }
 
     onRender() {

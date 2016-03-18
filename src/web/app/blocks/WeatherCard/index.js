@@ -11,13 +11,8 @@ import WeatherCardValue from './__Value/index'
 
 export default class WeatherCard extends Card {
 
-    constructor(model) {
-        super({});
-        this.model = model;
-    }
-
     getTitlePrimaryView() {
-        return new WeatherCardCity(this.model);
+        return new WeatherCardCity({model: this.model});
     }
 
     getTitleSecondaryView() {
@@ -25,7 +20,7 @@ export default class WeatherCard extends Card {
     }
 
     getTextView() {
-        return new WeatherCardValue(this.model);
+        return new WeatherCardValue({model: this.model});
     }
 
     getActionsView() {

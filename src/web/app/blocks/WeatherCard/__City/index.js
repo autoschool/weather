@@ -12,14 +12,8 @@ import './styles.scss'
 export default class WeatherCardCity extends LayoutView {
     @region('.city-suggest-area')
     suggest;
-    
-    constructor(model) {
-        super({model})
-    }
-    
-    template(serialized) {
-        return _.template(template)(serialized)
-    }
+
+    template = _.template(template);
 
     @on('click span.weather-city')
     editName(el) {
@@ -30,7 +24,7 @@ export default class WeatherCardCity extends LayoutView {
             type: 'text',
             class: 'weather-city_editable'
         }));
-        
+
         editableName.find('input')
             .focus()
             .val(name)

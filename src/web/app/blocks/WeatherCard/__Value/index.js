@@ -6,19 +6,18 @@ import template from './template.html'
 import './styles.scss'
 
 export default class WeatherCardValue extends ItemView {
-    constructor(model) {
+    template = _.template(template);
+    
+    constructor(options) {
         super({
-            model,
-            templateHelpers: {
-                humanizedTemperature: function () {
-                    return Number(this.temperatures[this.tempindex].value).toFixed(1)
+            ...options, ...{
+                templateHelpers: {
+                    humanizedTemperature: function () {
+                        return Number(this.temperatures[this.tempindex].value).toFixed(1)
+                    }
                 }
             }
-        })
-    }
-
-    template(serialized) {
-        return _.template(template)(serialized)
+        });
     }
 
     @on('click .weather-temperature')

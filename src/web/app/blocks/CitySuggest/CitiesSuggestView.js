@@ -11,9 +11,7 @@ import itemtemplate from './CitySuggestView.html'
 
 @className('city')
 class CitySuggestView extends ItemView {
-    template(serialized) {
-        return _.template(itemtemplate)(serialized)
-    }
+    template = _.template(itemtemplate);
 }
 
 @className('city-suggest')

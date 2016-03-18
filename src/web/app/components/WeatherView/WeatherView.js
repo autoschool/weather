@@ -12,17 +12,21 @@ import Suggest from '../../blocks/CitySuggest/CitiesSuggestView'
 
 export default class WeatherView extends LayoutView {
 
-    constructor({city, region} = {}) {
+    template = _.template(template);
+    
+    constructor({city, region, ...options} = {}) {
         super({
-            model: new Weather({city, region}),
-            regions: {
-                card: '#card'
+            ...options, ...{
+                model: new Weather({city, region}),
+                regions: {
+                    card: '#card'
+                }
             }
         });
     }
 
     onRender() {
-        this.card.show(new WeatherCard(this.model));
+        this.card.show(new WeatherCard({model: this.model}));
 
         let updated = this.model.get('updated');
         if (!updated) {
@@ -35,7 +39,5 @@ export default class WeatherView extends LayoutView {
         super.render()
     }
 
-    template(serialized) {
-        return _.template(template)(serialized)
-    }
+    
 } 
