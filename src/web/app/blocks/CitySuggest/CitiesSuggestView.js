@@ -25,6 +25,15 @@ export default class CitiesSuggestView extends CollectionView {
     }
 
     onRender() {
-        this.collection.fetch();
+        this.collection.fetch().then(()=> {
+            if (this.collection.length == 0) {
+                 this.hideSuggest();
+            }
+        });
+    }
+    
+    @on('click .city__name')
+    hideSuggest() {
+        this.el.style.display = 'none'; 
     }
 }

@@ -1,29 +1,4 @@
 <div class="container">
-    <div class="row">
-        <div class="col-xs-6">
-            <i class="wi fa-10x wi-owm-<%= daypart.toLowerCase() %>-<%= weathercode %> fa-white"></i>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6 col-xs-offset-6" id="suggest">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6 col-xs-offset-6">
-            <div class="weather__city">
-                <span class="pull-right">
-                    <%= city %>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-6 col-xs-offset-6">
-            <div class="weather__temperature">
-                <span class="pull-right">
-                    <%= humanizedTemperature() %> <%= temperatures[tempindex].unit %>
-                </span>
-            </div>
-        </div>
+    <div id="card">
     </div>
 </div>
