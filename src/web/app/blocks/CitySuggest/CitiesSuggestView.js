@@ -6,6 +6,7 @@ import CitySuggestCollection from '../../data/CitySuggestsCollection'
 import _ from 'underscore'
 import {on} from 'backbone-decorators'
 import {className} from '../../decorators'
+import $ from 'jquery'
 
 import itemtemplate from './CitySuggestView.html'
 
@@ -30,8 +31,18 @@ export default class CitiesSuggestView extends CollectionView {
         });
     }
     
-    @on('click .city__name')
     hideSuggest() {
         this.el.style.display = 'none'; 
+    }
+   
+    @on('mousedown .city')
+    goToCity(e) {
+        e.stopPropagation();
+        this.hideSuggest();
+        this.triggerMethod('clicked:city', e && $(e.target).find('.city__name').data('city'))
+    }
+    
+    subscribeOnClick(func) {
+        this.on('clicked:city', func);
     }
 }

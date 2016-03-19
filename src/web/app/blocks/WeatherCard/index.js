@@ -1,29 +1,64 @@
-import {Model} from 'backbone'
-import {ItemView} from 'backbone.marionette'
-
-import Card from '../../blocks/Card/index'
-import $ from 'jquery'
-import _ from 'underscore'
-import router from '../../routes'
-
-import WeatherCardCity from './__City/index'
-import WeatherCardValue from './__Value/index'
+import {Model} from "backbone";
+import {ItemView} from "backbone.marionette";
+import _ from "underscore";
+import Card from "../../blocks/Card/index";
+import WeatherCardValue from "./__Value/index";
+import InplaceEditView from "../InplaceEdit/index";
+import {region} from "../../decorators";
+import Suggest from "../CitySuggest/CitiesSuggestView";
+import {onModel} from 'backbone-decorators';
+import route from '../../routes'
+import "./styles.scss";
 
 export default class WeatherCard extends Card {
 
+    @region('.suggest')
+    suggest;
+
+    initialize() {
+        this.views = {
+            title: new InplaceEditView({model: this.model, field: 'city'}),
+            text: new WeatherCardValue({model: this.model}),
+            actions: new ItemView({template: _.template('')})
+        };
+
+        this.views.title.subscribe((query) => {
+            this.showSuggest(query);
+        })
+    }
+
     getTitlePrimaryView() {
-        return new WeatherCardCity({model: this.model});
+        return this.views.title;
     }
 
     getTitleSecondaryView() {
-        return new ItemView({template: _.template('today')});
+        return new ItemView({template: _.template('<div>today</div><div class="suggest"></div>')});
     }
 
     getTextView() {
-        return new WeatherCardValue({model: this.model});
+        return this.views.text;
     }
 
     getActionsView() {
-        return new ItemView({template: _.template('')});
+        return this.views.actions;
+    }
+
+    showSuggest(query) {
+        if (!this.suggest) {
+            return;
+        }
+
+        if (query.length > 1) {
+            var suggest = new Suggest(query);
+            suggest.subscribeOnClick((city) => {route.toCity(city)});
+            this.suggest.show(suggest);
+        } else {
+            this.suggest.empty();
+        }
+    }
+    
+    @onModel('change:city')
+    goToCity(model, city) {
+        route.toCity(city);
     }
 }

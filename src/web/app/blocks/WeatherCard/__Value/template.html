@@ -1,7 +1,13 @@
+<div class="line city-suggest-area">
+</div>
+
 <div class="line">
     <i class="wi weather-image wi-owm-<%= daypart.toLowerCase() %>-<%= weathercode %>"></i>
    
 </div>
 <div class="line">
-    <span class="weather-temperature"><%= humanizedTemperature() %> <%= temperatures[tempindex].unit %></span>
+    <div class="weather-temperature">
+        <span class="weather-temperature__digit"><%= humanizedTemperature() %></span>
+        <span class="weather-temperature__unit"><%= temperatures[tempindex].unit %></span>
+    </div>
 </div>

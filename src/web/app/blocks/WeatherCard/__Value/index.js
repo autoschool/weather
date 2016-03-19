@@ -1,11 +1,11 @@
-import {ItemView} from 'backbone.marionette'
+import {LayoutView} from 'backbone.marionette'
 import _ from 'underscore'
 import {onModel, on} from 'backbone-decorators'
 
 import template from './template.html'
 import './styles.scss'
 
-export default class WeatherCardValue extends ItemView {
+export default class WeatherCardValue extends LayoutView {
     template = _.template(template);
     
     constructor(options) {
@@ -19,7 +19,7 @@ export default class WeatherCardValue extends ItemView {
             }
         });
     }
-
+    
     @on('click .weather-temperature')
     nextTemp() {
         this.model.changeTemperature();
