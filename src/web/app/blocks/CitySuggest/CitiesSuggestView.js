@@ -6,14 +6,13 @@ import CitySuggestCollection from '../../data/CitySuggestsCollection'
 import _ from 'underscore'
 import {on} from 'backbone-decorators'
 import {className} from '../../decorators'
+import $ from 'jquery'
 
 import itemtemplate from './CitySuggestView.html'
 
 @className('city')
 class CitySuggestView extends ItemView {
-    template(serialized) {
-        return _.template(itemtemplate)(serialized)
-    }
+    template = _.template(itemtemplate);
 }
 
 @className('city-suggest')
@@ -25,6 +24,25 @@ export default class CitiesSuggestView extends CollectionView {
     }
 
     onRender() {
-        this.collection.fetch();
+        this.collection.fetch().then(()=> {
+            if (this.collection.length == 0) {
+                 this.hideSuggest();
+            }
+        });
+    }
+    
+    hideSuggest() {
+        this.el.style.display = 'none'; 
+    }
+   
+    @on('mousedown .city')
+    suggestClicked(e) {
+        e.stopPropagation();
+        this.hideSuggest();
+        this.triggerMethod('clicked:city', $(e.target).find('.city__name').data('city'))
+    }
+    
+    subscribeOnClick(func) {
+        this.on('clicked:city', func);
     }
 }

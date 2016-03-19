@@ -1,0 +1,5 @@
+<% if(editable) { %>
+<input type="text" value="<%= value %>" class="inplace inplace_editable">
+<% } else { %>
+<span class="inplace inplace_displayed"><%= value %></span>
+<% } %>

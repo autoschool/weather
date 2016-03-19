@@ -6,6 +6,7 @@ export default class Weather extends Model {
 
     defaults() {
         return {
+            editable: false,
             city: '',
             tempindex: 0,
             daypart: 'day',
@@ -27,5 +28,9 @@ export default class Weather extends Model {
     
     changeTemperature() {
         this.set({'tempindex': (this.get('tempindex') + 1) % this.get('temperatures').length})
+    }
+    
+    toggleEditable() {
+        this.set('editable', !this.get('editable'));
     }
 }
