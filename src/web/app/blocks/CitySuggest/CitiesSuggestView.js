@@ -36,10 +36,10 @@ export default class CitiesSuggestView extends CollectionView {
     }
    
     @on('mousedown .city')
-    goToCity(e) {
+    suggestClicked(e) {
         e.stopPropagation();
         this.hideSuggest();
-        this.triggerMethod('clicked:city', e && $(e.target).find('.city__name').data('city'))
+        this.triggerMethod('clicked:city', $(e.target).find('.city__name').data('city'))
     }
     
     subscribeOnClick(func) {
