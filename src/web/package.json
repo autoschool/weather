@@ -6,14 +6,15 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --watch --hot --inline",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:watch:ff": "karma start",
+    "test": "JASMINE_CONFIG_PATH=jasmine.json DEBUG=weather:test jasmine"
   },
   "author": "lanwen",
   "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://github.yandex-team.ru/qatools/weather"
-  },                          
+  },
   "devDependencies": {
     "babel-core": "^6.6.5",
     "babel-loader": "^6.2.4",
@@ -28,7 +29,17 @@
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.9.0",
     "imports-loader": "^0.6.5",
+    "jasmine": "^2.4.1",
+    "jasmine-core": "^2.4.1",
+    "jsdom": "^8.1.0",
+    "karma": "^0.13.22",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.8",
+    "karma-jasmine-html-reporter-livereload": "^1.0.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.7.0",
     "node-sass": "^3.4.2",
+    "require-ext": "^1.0.2",
     "resolve-url": "^0.2.1",
     "resolve-url-loader": "^1.4.3",
     "sass-loader": "^3.1.2",
@@ -41,6 +52,7 @@
     "backbone-decorators": "0.0.4",
     "backbone.marionette": "^2.4.4",
     "bootstrap-sass": "^3.3.6",
+    "debug": "^2.2.0",
     "font-awesome": "^4.5.0",
     "jquery": "^2.2.1",
     "underscore": "^1.8.3",
