@@ -28,9 +28,7 @@ module.exports = {
                 loader: 'babel',
                 exclude: /(node_modules)/,
                 query: {
-                    cacheDirectory: true,
-                    plugins: ['transform-decorators-legacy'],
-                    presets: ['es2015', 'stage-1']
+                    cacheDirectory: true
                 }
             },
             {test: /\.scss/, loader: ExtractTextPlugin.extract('style', 'css!sass')},
