@@ -1,8 +1,8 @@
-process.env.NODE_PATH = 'src';
-module.constructor._initPaths();
+// process.env.NODE_PATH = 'src';
+// module.constructor._initPaths();
 
 require('require-ext');
-require('babel-core/register')({presets: ['es2015', 'stage-1'], plugins: ['transform-decorators-legacy']});
+require('babel-core/register');
 global.dump = require('debug')('weather:test');
 
 var jsdom = require('jsdom').jsdom;

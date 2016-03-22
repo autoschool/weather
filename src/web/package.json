@@ -6,11 +6,10 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --watch --hot --inline",
-    "test:watch:ff": "karma start",
     "test": "JASMINE_CONFIG_PATH=jasmine.json DEBUG=weather:test jasmine"
   },
   "author": "lanwen",
-  "license": "ISC",
+  "license": "Apache 2.0",
   "repository": {
     "type": "git",
     "url": "https://github.yandex-team.ru/qatools/weather"
@@ -32,12 +31,6 @@
     "jasmine": "^2.4.1",
     "jasmine-core": "^2.4.1",
     "jsdom": "^8.1.0",
-    "karma": "^0.13.22",
-    "karma-firefox-launcher": "^0.1.7",
-    "karma-jasmine": "^0.3.8",
-    "karma-jasmine-html-reporter-livereload": "^1.0.0",
-    "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^1.7.0",
     "node-sass": "^3.4.2",
     "require-ext": "^1.0.2",
     "resolve-url": "^0.2.1",
@@ -57,5 +50,12 @@
     "jquery": "^2.2.1",
     "underscore": "^1.8.3",
     "weather-icons": "git+https://git@github.com/erikflowers/weather-icons.git"
+  },
+  "babel": {
+    "plugins": ["transform-decorators-legacy"],
+    "presets": ["es2015", "stage-1"],
+    "ignore": [
+      "node_modules"
+    ]
   }
 }

@@ -1,8 +1,8 @@
-import {App} from '../app/app'
+import {App} from '../app/app';
 
-describe('app', function () {
+describe('app', () => {
 
-    it('should load', function () {
+    it('should load', () => {
         expect(App).toBeDefined();
     });
 

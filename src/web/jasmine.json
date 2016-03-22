@@ -4,6 +4,6 @@
         "**/*.spec.js"
     ],
     "helpers": [
-        "bootstrap.js"
+        "setup/bootstrap.js"
     ]
 }
