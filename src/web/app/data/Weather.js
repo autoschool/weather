@@ -11,6 +11,10 @@ export default class Weather extends Model {
             tempindex: 0,
             daypart: 'day',
             weathercode: '800',
+            sunrise: 0,
+            sunset: 0,
+            humidity: 0,
+            wind: 0,
             temperatures: [{
                 unit: '',
                 value: 0

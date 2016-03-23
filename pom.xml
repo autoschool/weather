@@ -20,6 +20,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.12</version>
+        </dependency>
         <!-- WEB -->
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
@@ -204,6 +209,7 @@
                     <workingDirectory>src/web</workingDirectory>
                     <nodeVersion>v5.7.1</nodeVersion>
                     <npmVersion>3.6.0</npmVersion>
+                    <!--<skip>true</skip>-->
                 </configuration>
                 <executions>
                     <execution>

@@ -10,6 +10,11 @@
             <xs:element name="city" type="xs:string"/>
             <xs:element name="daypart" type="ns:Daypart"/>
             <xs:element name="weathercode" type="xs:int"/>
+            <xs:element name="sunset" type="xs:long"/>
+            <xs:element name="sunrise" type="xs:long"/>
+            <xs:element name="dt" type="xs:long"/>
+            <xs:element name="humidity" type="xs:int"/>
+            <xs:element name="wind" type="xs:double"/>
             <xs:element name="temperatures" type="ns:Temperature" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>

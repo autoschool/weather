@@ -1,0 +1,40 @@
+{
+    "coord": {
+        "lon": 30.26,
+        "lat": 59.89
+    },
+    "weather": [
+        {
+            "id": 800,
+            "main": "Clear",
+            "description": "clear sky",
+            "icon": "01n"
+        }
+    ],
+    "base": "cmc stations",
+    "main": {
+        "temp": 265.15,
+        "pressure": 1011,
+        "humidity": 67,
+        "temp_min": 265.15,
+        "temp_max": 265.15
+    },
+    "wind": {
+        "speed": 1
+    },
+    "clouds": {
+        "all": 0
+    },
+    "dt": 1458685800,
+    "sys": {
+        "type": 1,
+        "id": 7267,
+        "message": 0.0033,
+        "country": "RU",
+        "sunrise": 1458618649,
+        "sunset": 1458663684
+    },
+    "id": 498817,
+    "name": "Saint Petersburg",
+    "cod": 200
+}

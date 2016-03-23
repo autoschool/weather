@@ -3,11 +3,36 @@
 
 <div class="line">
     <i class="wi weather-image wi-owm-<%= daypart.toLowerCase() %>-<%= weathercode %>"></i>
-   
+
 </div>
 <div class="line">
-    <div class="weather-temperature">
+    <div class="weather-temperature md-12">
         <span class="weather-temperature__digit"><%= humanizedTemperature() %></span>
         <span class="weather-temperature__unit"><%= temperatures[tempindex].unit %></span>
     </div>
+</div>
+
+<div class="line divider"></div>
+
+<div class="line info-line">
+    <span class="info-line__title">Sunrise </span>
+    <span class="info-line__value"><%= asTime(sunrise) %></span>
+    <span class="info-line__image"><i class="wi wi-sunrise"></i></span>
+</div>
+<div class="line info-line">
+    <span class="info-line__title">Sunset </span>
+    <span class="info-line__value"><%= asTime(sunset) %></span>
+    <span class="info-line__image"><i class="wi wi-sunset"></i></span>
+</div>
+
+<div class="line info-line">
+    <span class="info-line__title">Wind </span>
+    <span class="info-line__value"><%= wind %> m/s</span>
+    <span class="info-line__image"><i class="wi wi-strong-wind"></i></span>
+</div>
+
+<div class="line info-line">
+    <span class="info-line__title">Humidity </span>
+    <span class="info-line__value"><%= humidity %> %</span>
+    <span class="info-line__image"><i class="wi wi-raindrops"></i></span>
 </div>

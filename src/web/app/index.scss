@@ -2,7 +2,18 @@ body {
   background-color: #eeeeee;
 }
 
+.divider {
+  border-top: 1px solid;
+  border-color: #f0f0f0;
+}
+
 .line {
   width: 100%;
+  // clearfix
+  &:after {
+    content:"";
+    display:block;
+    clear:both;
+  }
 }
 
