@@ -7,4 +7,24 @@
   font-size: 5em;
   float: right;
   cursor: pointer;
+  &__unit {
+    vertical-align: top;
+    font-size: 0.7em;
+  }
+}
+
+.info-line {
+  padding-top: 10px;
+  line-height: 30px;
+  &__title {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54);
+  }
+  &__value, &__image {
+    padding-left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.54);
+    float: right;
+  }
 }

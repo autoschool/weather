@@ -47,10 +47,15 @@ public class OpenWeatherService implements WeatherService {
                 .withWeathercode(response.getDetails().stream()
                         .findFirst().orElse(new OpenWeatherDetails().withId(0)).getId())
                 .withDaypart(
-                        ofEpochSecond(response.getDt()).isAfter(ofEpochSecond(response.getSys().getSunset())) 
+                        ofEpochSecond(response.getSys().getSunrise()).isBefore(ofEpochSecond(response.getSys().getSunset())) 
                         ? NIGHT 
                         : DAY
                 )
+                .withDt(response.getDt())
+                .withSunrise(response.getSys().getSunrise())
+                .withSunset(response.getSys().getSunset())
+                .withWind(response.getWind().getSpeed())
+                .withHumidity(response.getTemperature().getHumidity())
                 .withTemperatures(
                         new Temperature().withUnit("°C").withValue(kelvinToCelsius(responseTemperature)),
                         new Temperature().withUnit("°K").withValue(responseTemperature),

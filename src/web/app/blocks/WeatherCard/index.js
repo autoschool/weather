@@ -1,13 +1,14 @@
 import {Model} from "backbone";
 import {ItemView} from "backbone.marionette";
 import _ from "underscore";
+import moment from 'moment'
 import Card from "../../blocks/Card/index";
 import WeatherCardValue from "./__Value/index";
 import InplaceEditView from "../InplaceEdit/index";
 import {region} from "../../decorators";
 import Suggest from "../CitySuggest/CitiesSuggestView";
-import {onModel} from 'backbone-decorators';
-import route from '../../routes'
+import {onModel} from "backbone-decorators";
+import route from "../../routes";
 import "./styles.scss";
 
 export default class WeatherCard extends Card {
@@ -32,7 +33,12 @@ export default class WeatherCard extends Card {
     }
 
     getTitleSecondaryView() {
-        return new ItemView({template: _.template('<div>today</div><div class="suggest"></div>')});
+        return new ItemView({
+            model: new Model({
+                dt: moment(this.model.get('dt'), 'X').format('h A, DD MMM YY (Z)')
+            }),
+            template: _.template('<div><%= dt %></div><div class="suggest"></div>')
+        });
     }
 
     getTextView() {
@@ -50,13 +56,15 @@ export default class WeatherCard extends Card {
 
         if (query.length > 1) {
             var suggest = new Suggest(query);
-            suggest.subscribeOnClick((city) => {route.toCity(city)});
+            suggest.subscribeOnClick((city) => {
+                route.toCity(city)
+            });
             this.suggest.show(suggest);
         } else {
             this.suggest.empty();
         }
     }
-    
+
     @onModel('change:city')
     goToCity(model, city) {
         route.toCity(city);
