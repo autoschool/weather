@@ -33,6 +33,7 @@ export default class WeatherCard extends Card {
     }
 
     getTitleSecondaryView() {
+        // fixme в отдельный класс надо бы
         return new ItemView({
             model: new Model({
                 dt: moment(this.model.get('dt'), 'X').format('h A, DD MMM YY (Z)')

@@ -26,15 +26,12 @@ export default class Weather extends Model {
         let {city, region} = this.attributes;
         let options = opts || {};
         options.data = {city, region};
+        _.each(options.data, (val, key) => {if(!val) {delete options.data[key]}});
         this.set('updated', true);
         return super.fetch(options);
     }
     
     changeTemperature() {
         this.set({'tempindex': (this.get('tempindex') + 1) % this.get('temperatures').length})
-    }
-    
-    toggleEditable() {
-        this.set('editable', !this.get('editable'));
     }
 }
