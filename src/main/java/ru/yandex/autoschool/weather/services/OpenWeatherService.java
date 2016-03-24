@@ -8,7 +8,6 @@ import ru.yandex.autoschool.weather.models.Temperature;
 import ru.yandex.autoschool.weather.models.Weather;
 import ru.yandex.autoschool.weather.utils.ClientsBuilder;
 
-import static java.time.Instant.ofEpochSecond;
 import static jersey.repackaged.com.google.common.base.MoreObjects.firstNonNull;
 import static ru.yandex.autoschool.weather.models.Daypart.DAY;
 import static ru.yandex.autoschool.weather.models.Daypart.NIGHT;
@@ -42,15 +41,12 @@ public class OpenWeatherService implements WeatherService {
         OpenWeatherResponse response = service.getWeather(weatherQuery, OpenWeatherClient.APP_ID);
 
         double responseTemperature = response.getTemperature().getValue();
+        OpenWeatherDetails details = response.getDetails().stream()
+                .findFirst().orElse(new OpenWeatherDetails().withId(0));
         return new Weather()
                 .withCity(response.getCity())
-                .withWeathercode(response.getDetails().stream()
-                        .findFirst().orElse(new OpenWeatherDetails().withId(0)).getId())
-                .withDaypart(
-                        ofEpochSecond(response.getSys().getSunrise()).isBefore(ofEpochSecond(response.getSys().getSunset())) 
-                        ? NIGHT 
-                        : DAY
-                )
+                .withWeathercode(details.getId())
+                .withDaypart(from(details))
                 .withDt(response.getDt())
                 .withSunrise(response.getSys().getSunrise())
                 .withSunset(response.getSys().getSunset())
@@ -61,5 +57,17 @@ public class OpenWeatherService implements WeatherService {
                         new Temperature().withUnit("°K").withValue(responseTemperature),
                         new Temperature().withUnit("°F").withValue(kelvinToFahrenheit(responseTemperature))
                 );
+    }
+
+    /**
+     * У OWM какая то хитрая логика отдачи ts для заката/восхода. И точность текущего времени - без минут
+     * Поэтому парсим букву картинки :)
+     */
+    private Daypart from(OpenWeatherDetails details) {
+        if (details.getIcon().contains("n")) {
+            return NIGHT;
+        } else {
+            return DAY;
+        }
     }
 }

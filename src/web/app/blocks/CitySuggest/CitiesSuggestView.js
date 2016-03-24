@@ -6,7 +6,6 @@ import CitySuggestCollection from '../../data/CitySuggestsCollection'
 import _ from 'underscore'
 import {on} from 'backbone-decorators'
 import {className} from '../../decorators'
-import $ from 'jquery'
 
 import itemtemplate from './CitySuggestView.html'
 
@@ -38,7 +37,7 @@ export default class CitiesSuggestView extends CollectionView {
     @on('mousedown .city')
     suggestClicked(e) {
         e.stopPropagation();
-        var city = $(e.currentTarget).find('.city__name').data('city');
+        var city = this.$(e.currentTarget).find('.city__name').data('city');
         this.triggerMethod('clicked:city', city);
         this.hideSuggest();
     }

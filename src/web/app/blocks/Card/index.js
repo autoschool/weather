@@ -2,11 +2,12 @@ import './styles.scss'
 
 import {Model} from 'backbone'
 import {LayoutView} from 'backbone.marionette'
-import {region} from '../../decorators'
+import {region, className} from '../../decorators'
 import _ from 'underscore'
 
 import template from './template.html'
 
+@className('card card_md')
 export default class Card extends LayoutView {
 
     @region('.card-title__primary')

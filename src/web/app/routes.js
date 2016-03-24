@@ -9,8 +9,8 @@ class AppRouter extends Router {
         });
     }
 
-    toCity(city) {
-        this.navigate(`?city=${city}`, {trigger: true})
+    saveState(cities) {
+        this.navigate(`?cities=${cities}`, {trigger: false})
     }
 }
 

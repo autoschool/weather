@@ -1,41 +1,43 @@
-import './WeatherView.scss'
-
-import {onModel, on} from 'backbone-decorators'
-import {region} from '../../decorators'
-import Weather from '../../data/Weather';
-import {LayoutView} from 'backbone.marionette'
+import {onModel, on, onCollection} from 'backbone-decorators';
+import {className} from '../../decorators';
 import _ from 'underscore'
+import WeatherCollection from '../../data/WeatherCollection';
+import Weather from '../../data/Weather';
+import {CompositeView} from 'backbone.marionette';
+import WeatherCard from '../../blocks/WeatherCard/index';
 import template from './WeatherView.html'
-import WeatherCard from '../../blocks/WeatherCard/index'
+import router from '../../routes'
+import './WeatherView.scss';
 
-export default class WeatherView extends LayoutView {
-
+@className('weather-cards')
+export default class WeatherView extends CompositeView {
+    childView = WeatherCard;
+    childViewContainer = '.weather-cards__container';
+    
     template = _.template(template);
-    
-    @region('#card')
-    card;
-    
-    constructor({city, region, ...options} = {}) {
+
+    constructor({cities}) {
         super({
-            ...options, ...{
-                model: new Weather({city, region})
-            }
+            collection: new WeatherCollection(cities.split(",").map(city => new Weather({city}))),
         });
+    }
+    
+    @onCollection('change:city')
+    @onCollection('remove')
+    updateUrl() {
+        router.saveState(this.collection.map(model => model.get('city')).join(','));
+    }
+    
+    @on('click .new-card') 
+    addEmpty() {
+         this.collection.add(new Weather({city: 'What a city?'}), {at: 0});
     }
 
     onRender() {
-        this.card.show(new WeatherCard({model: this.model}));
-
-        let updated = this.model.get('updated');
-        if (!updated) {
-            this.model.fetch();
-        }
+        this.refetch();
     }
 
-    @onModel('change')
-    render() {
-        super.render()
+    refetch() {
+        this.collection.fetch();
     }
-
-    
-} 
+}
