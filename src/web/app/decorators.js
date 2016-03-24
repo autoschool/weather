@@ -1,11 +1,16 @@
 export function className(name) {
-    return function (target) {
+    return target => {
         target.prototype.className = name;
+    };
+}
+export function urlRoot(url) {
+    return target => {
+        target.prototype.urlRoot = url;
     };
 }
 
 export function region(selector) {
-    return function (target, name, descriptor) {
+    return (target, name, descriptor) => {
         delete descriptor.initializer;
         descriptor.writable = true;
         target.regions = Object.assign({

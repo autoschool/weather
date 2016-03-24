@@ -1,9 +1,9 @@
-import {Model} from 'backbone'
-import _ from 'underscore'
+import {Model} from "backbone";
+import {urlRoot} from "../decorators";
+import _ from "underscore";
 
+@urlRoot('/api/weather')
 export default class Weather extends Model {
-    urlRoot = '/api/weather';
-
     defaults() {
         return {
             editable: false,
@@ -25,12 +25,11 @@ export default class Weather extends Model {
     fetch(opts) {
         let {city, region} = this.attributes;
         let options = opts || {};
-        options.data = {city, region};
-        _.each(options.data, (val, key) => {if(!val) {delete options.data[key]}});
+        options.data = _.pick({city, region}, value => value);
         this.set('updated', true);
         return super.fetch(options);
     }
-    
+
     changeTemperature() {
         this.set({'tempindex': (this.get('tempindex') + 1) % this.get('temperatures').length})
     }
