@@ -1,24 +1,25 @@
-import {Model} from "backbone";
-import {urlRoot} from "../decorators";
-import _ from "underscore";
+import {Model} from 'backbone';
+import {urlRoot} from '../decorators';
+import _ from 'underscore';
 
 @urlRoot('/api/weather')
 export default class Weather extends Model {
     defaults() {
         return {
-            editable: false,
             city: '',
             tempindex: 0,
             daypart: 'day',
             weathercode: '800',
+            dt: new Date().getTime(),
             sunrise: 0,
             sunset: 0,
             humidity: 0,
             wind: 0,
-            temperatures: [{
-                unit: '',
-                value: 0
-            }]
+            temperatures: [
+                {
+                    unit: '',
+                    value: 0
+                }]
         }
     }
 

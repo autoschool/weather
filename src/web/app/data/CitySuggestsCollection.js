@@ -1,15 +1,12 @@
 import {Model} from 'backbone'
 import {Collection} from 'backbone'
-import url from 'url'
 
 class CityInSuggestModel extends Model {
 }
 
 export default class CitySuggestsCollection extends Collection {
-    model = CityInSuggestModel;
-
     constructor(query) {
-        super({});
+        super([], {model: CityInSuggestModel});
         this.query = query;
     }
 

@@ -1,0 +1,40 @@
+.weather-cards__container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.new-card {
+  margin: 173px;
+  border: 10px;
+  box-sizing: border-box;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+  vertical-align: bottom;
+  position: relative;
+  height: 56px;
+  width: 56px;
+  padding: 0;
+  overflow: hidden;
+  background: #424242 none;
+  border-radius: 50%;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16), 0 3px 10px rgba(0, 0, 0, 0.23);
+  &:hover {
+    background: #606060 none;
+  }
+
+  &__symbol {
+    display: inline-block;
+    height: 56px;
+    width: 24px;
+    user-select: none;
+    line-height: 56px;
+    fill: #ffffff;
+    color: #ffffff;
+  }
+}
