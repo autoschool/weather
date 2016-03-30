@@ -17,6 +17,9 @@ export default class WeatherCardValue extends LayoutView {
                 },
                 asTime: function (unixts) {
                     return moment(unixts, 'X').format('HH:mm')
+                },
+                weatherImage: function () {
+                    return `wi-owm-${this.daypart.toLowerCase()}-${this.weathercode}`
                 }
             }
         });
