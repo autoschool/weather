@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>weather</artifactId>
+        <groupId>ru.yandex.autoschool</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>weather-runner</artifactId>
+
+    <build>
+        <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>copy-jetty-runner</id>
+                    <phase>prepare-package</phase>
+                    <goals>
+                        <goal>copy</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${project.build.directory}/export</outputDirectory>
+                        <artifactItems>
+                            
+                            <artifactItem>
+                                <groupId>org.eclipse.jetty</groupId>
+                                <artifactId>jetty-runner</artifactId>
+                                <version>${jetty.version}</version>
+                                <destFileName>runner.jar</destFileName>
+                            </artifactItem>
+
+                            <artifactItem>
+                                <groupId>${project.groupId}</groupId>
+                                <artifactId>weather-app</artifactId>
+                                <version>${project.version}</version>
+                                <destFileName>server.war</destFileName>
+                                <type>war</type>
+                            </artifactItem>
+                            <!-- java -jar target/runner.jar -stop-port 9090 -stop-key bla target/*.war-->
+
+                            <artifactItem>
+                                <groupId>org.eclipse.jetty</groupId>
+                                <artifactId>jetty-start</artifactId>
+                                <version>${jetty.version}</version>
+                                <destFileName>stop.jar</destFileName>
+                            </artifactItem>
+                            <!--java -jar target/start.jar STOP.PORT=9090 STOP.KEY=bla -stop-->
+
+                        </artifactItems>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        </plugins>
+    </build>
+
+</project>
