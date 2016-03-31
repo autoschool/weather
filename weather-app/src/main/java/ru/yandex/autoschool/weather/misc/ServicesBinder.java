@@ -19,8 +19,8 @@ public class ServicesBinder implements Feature {
         context.register(new AbstractBinder() {
             @Override
             protected void configure() {
-//                bind(OpenWeatherService.class).to(WeatherService.class);
-                bind(StaticWeatherService.class).to(WeatherService.class);
+                bind(OpenWeatherService.class).to(WeatherService.class);
+//                bind(StaticWeatherService.class).to(WeatherService.class);
             }
         });
         return true;
