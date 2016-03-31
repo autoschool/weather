@@ -1,47 +1,53 @@
 package ru.yandex.autoschool.weather.service;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import ru.yandex.autoschool.weather.clients.OpenWeatherClient;
+import ru.yandex.autoschool.weather.clients.OpenWeatherDetails;
 import ru.yandex.autoschool.weather.clients.OpenWeatherResponse;
+import ru.yandex.autoschool.weather.clients.OpenWeatherSys;
 import ru.yandex.autoschool.weather.clients.OpenWeatherTemperature;
+import ru.yandex.autoschool.weather.clients.OpenWeatherWind;
 import ru.yandex.autoschool.weather.models.Weather;
 import ru.yandex.autoschool.weather.services.OpenWeatherService;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
  * eroshenkoam
  * 30/10/14
  */
+@RunWith(MockitoJUnitRunner.class)
 public class WeatherServiceTest {
 
-    private String city = "Saint Petersburg";
-    private String region = "ru";
-    private double temperature = 280;
+    private static final String CITY = "Saint Petersburg";
+    private static final String REGION = "ru";
+    private static final double TEMPERATURE = 280;
+
+    @Mock
+    private OpenWeatherClient client;
 
     @Test
     public void testWeatherService() {
-        OpenWeatherService service = new OpenWeatherService(getMock(city, region, temperature));
-        Weather weather = service.getWeather(city, region);
+        Weather weather = new OpenWeatherService(getMock(CITY, REGION, TEMPERATURE)).getWeather(CITY, REGION);
 
         assertThat(weather, notNullValue());
-        assertThat(weather.getCity(), equalTo(city));
+        assertThat(weather.getCity(), equalTo(CITY));
     }
 
-    public static OpenWeatherClient getMock(String city, String region, double temperature) {
+    public OpenWeatherClient getMock(String city, String region, double temperature) {
+        OpenWeatherResponse response = new OpenWeatherResponse()
+                .withCity(city)
+                .withSys(new OpenWeatherSys())
+                .withWind(new OpenWeatherWind())
+                .withDetails(new OpenWeatherDetails().withIcon("17n"))
+                .withTemperature(new OpenWeatherTemperature().withValue(temperature));
 
-        OpenWeatherResponse response = new OpenWeatherResponse();
-        response.withCity(city)
-                .withTemperature(
-                        new OpenWeatherTemperature()
-                                .withValue(temperature)
-                );
-
-        OpenWeatherClient client = mock(OpenWeatherClient.class);
         when(client.getWeather(String.format("%s,%s", city, region), OpenWeatherClient.APP_ID)).thenReturn(response);
         return client;
     }
