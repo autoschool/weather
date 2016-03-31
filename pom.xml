@@ -7,7 +7,12 @@
     <groupId>ru.yandex.autoschool</groupId>
     <artifactId>weather</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    
+    <modules>
+        <module>weather-app</module>
+    </modules>
+    
+    <packaging>pom</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,224 +24,17 @@
         <jetty.port>9998</jetty.port>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.12</version>
-        </dependency>
-        <!-- WEB -->
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet</artifactId>
-            <version>${jersey.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.squareup.retrofit</groupId>
-            <artifactId>retrofit</artifactId>
-            <version>1.7.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-            <version>${jersey.version}</version>
-        </dependency>
-
-        <!-- Commons -->
-        <dependency>
-            <groupId>org.jvnet.jaxb2_commons</groupId>
-            <artifactId>jaxb2-basics</artifactId>
-            <version>0.9.5</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.9.5</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.detro</groupId>
-            <artifactId>phantomjsdriver</artifactId>
-            <version>1.2.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.ibm.icu</groupId>
-            <artifactId>icu4j</artifactId>
-            <version>53.1</version>
-        </dependency>
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>3.3</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.jvnet.jaxb2.maven2</groupId>
-                <artifactId>maven-jaxb2-plugin</artifactId>
-                <version>0.13.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.google.code.gson</groupId>
-                        <artifactId>gson</artifactId>
-                        <version>2.3</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <schemaDirectory>src/main/resources/xsd</schemaDirectory>
-                    <bindingDirectory>src/main/resources/xsd</bindingDirectory>
-                    <removeOldOutput>true</removeOldOutput>
-                    <extension>true</extension>
-                    <verbose>true</verbose>
-                    <readOnly>true</readOnly>
-                    <args>
-                        <arg>-enableIntrospection</arg>
-                        <arg>-no-header</arg>
-                        <arg>-Xxew</arg>
-                        <arg>-Xxew:instantiate lazy</arg>
-                        <arg>-Xfluent-api</arg>
-                        <arg>-Xinheritance</arg>
-                        <arg>-Xannotate</arg>
-                        <arg>-Xequals</arg>
-                        <arg>-XhashCode</arg>
-                    </args>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.jvnet.jaxb2_commons</groupId>
-                            <artifactId>jaxb2-basics</artifactId>
-                            <version>0.9.5</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>com.github.jaxb-xew-plugin</groupId>
-                            <artifactId>jaxb-xew-plugin</artifactId>
-                            <version>1.5</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>net.java.dev.jaxb2-commons</groupId>
-                            <artifactId>jaxb-fluent-api</artifactId>
-                            <version>2.1.8</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.jvnet.jaxb2_commons</groupId>
-                            <artifactId>jaxb2-basics-annotate</artifactId>
-                            <version>1.0.2</version>
-                        </plugin>
-                    </plugins>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.16</version>
-                <configuration>
-                    <excludes>
-                        <exclude>**/web/**</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.17</version>
-                <configuration>
-                    <includes>
-                        <include>**/web/**</include>
-                    </includes>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.5</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.2.1.v20140609</version>
-                <configuration>
-                    <scanIntervalSeconds>0</scanIntervalSeconds>
-                    <webApp>
-                        <contextPath>/</contextPath>
-                    </webApp>
-                    <stopPort>9847</stopPort>
-                    <stopKey>weather-local</stopKey>
-                    <jvmArgs>
-                        -Xmx1024m
-                        -XX:MaxPermSize=512m
-                        -Ddb.path=${project.build.directory}/db
-                    </jvmArgs>
-                    <webAppSourceDirectory>${project.build.directory}/www</webAppSourceDirectory>
-                    <goal>run-forked</goal>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>0.0.27</version>
-                <configuration>
-                    <workingDirectory>src/web</workingDirectory>
-                    <nodeVersion>v5.7.1</nodeVersion>
-                    <npmVersion>3.6.0</npmVersion>
-                    <!--<skip>true</skip>-->
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>install node and npm</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>npm install</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>webpack build</id>
-                        <goals>
-                            <goal>webpack</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>-p</arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
-
-
 </project>
