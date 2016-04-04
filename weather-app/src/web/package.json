@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --watch --hot --inline",
-    "test": "JASMINE_CONFIG_PATH=jasmine.json DEBUG=weather:test jasmine"
+    "test": "JASMINE_CONFIG_PATH=jasmine.json DEBUG=weather:test jasmine",
+    "raml2html": "raml2html -i ../../target/generated-sources/jaxrs-raml/api.raml -o ../../target/www/api.html"
   },
   "author": "lanwen",
   "license": "Apache 2.0",
