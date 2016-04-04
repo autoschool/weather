@@ -1,5 +1,6 @@
 package ru.yandex.autoschool.weather.resources;
 
+import com.wordnik.swagger.annotations.ApiOperation;
 import ru.yandex.autoschool.weather.models.Weather;
 import ru.yandex.autoschool.weather.services.OpenWeatherService;
 import ru.yandex.autoschool.weather.services.WeatherService;
@@ -23,26 +24,40 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.length;
 
 /**
- * eroshenkoam
- * 29/10/14
+ * index resource
  */
-@Path("/")
+@Path("")
 @Produces(MediaType.APPLICATION_JSON)
 public class IndexResource {
 
     @Inject
     private WeatherService weather;
 
+    /**
+     * Returns actual weather for city
+     *
+     * @param city   city name
+     * @param region region (ru, us, fr...)
+     *
+     * @return weather object
+     */
     @GET
     @Path("/weather")
-    public Weather getIndex(@DefaultValue(OpenWeatherService.DEFAULT_CITY)
-                            @QueryParam("city") String city,
+    @ApiOperation(value = "", response = Weather.class)
+    public Weather getIndex(@QueryParam("city") String city,
                             @DefaultValue(OpenWeatherService.DEFAULT_REGION)
                             @QueryParam("region") String region) {
         return weather.getWeather(city, region);
     }
 
-    @GET
+    /**
+     * Suggest for city
+     *
+     * @param query query to search (more than 2 symb)
+     *                               
+     * @return cities list
+     */
+    @GET              
     @Path("/suggest")
     public String suggest(@QueryParam("query") String query) {
         if (isBlank(query) || length(query) < 2) {
