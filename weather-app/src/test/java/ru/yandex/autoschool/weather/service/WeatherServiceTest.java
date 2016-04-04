@@ -10,12 +10,17 @@ import ru.yandex.autoschool.weather.clients.OpenWeatherResponse;
 import ru.yandex.autoschool.weather.clients.OpenWeatherSys;
 import ru.yandex.autoschool.weather.clients.OpenWeatherTemperature;
 import ru.yandex.autoschool.weather.clients.OpenWeatherWind;
+import ru.yandex.autoschool.weather.models.Temperature;
 import ru.yandex.autoschool.weather.models.Weather;
 import ru.yandex.autoschool.weather.services.OpenWeatherService;
 
+import java.util.stream.Collectors;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.Matchers.hasItem;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assume.assumeThat;
 import static org.mockito.Mockito.when;
 
 /**
@@ -33,11 +38,20 @@ public class WeatherServiceTest {
     private OpenWeatherClient client;
 
     @Test
-    public void testWeatherService() {
+    public void shouldProvideCityWeatherFromService() {
         Weather weather = new OpenWeatherService(getMock(CITY, REGION, TEMPERATURE)).getWeather(CITY, REGION);
 
         assertThat(weather, notNullValue());
         assertThat(weather.getCity(), equalTo(CITY));
+    }
+
+    @Test
+    public void shouldReturnKelvinPlus10Degree() {
+        Weather weather = new OpenWeatherService(getMock(CITY, REGION, TEMPERATURE)).getWeather(CITY, REGION);
+
+        assumeThat(weather, notNullValue());
+        assertThat(weather.getTemperatures().stream().map(Temperature::getValue).collect(Collectors.toList()),
+                hasItem(equalTo(TEMPERATURE + 10)));
     }
 
     public OpenWeatherClient getMock(String city, String region, double temperature) {

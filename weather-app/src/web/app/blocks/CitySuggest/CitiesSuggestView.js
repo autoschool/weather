@@ -27,6 +27,9 @@ export default class CitiesSuggestView extends CollectionView {
             if (this.collection.length == 0) {
                  this.hideSuggest();
             }
+            if (this.collection.length > 0 && this.collection.length < 3) {
+                this.collection.push({name: 'undefined', country: ''})
+            }
         });
     }
     
