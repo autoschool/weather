@@ -1,9 +1,6 @@
 #!groovy
 node('digitalocean') {
     docker.image('maven').inside('-u root') {
-        stage 'Checkout'
-        git credentialsId: 'b4a9fdbe-64cd-4c72-9c73-686b177c40ce', url: 'git@github.com:autoschool/weather.git'
-
         stage 'Build'
         writeFile(
             file: 'settings.xml', 
