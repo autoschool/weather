@@ -6,6 +6,7 @@ import ru.yandex.autoschool.weather.services.OpenWeatherService;
 import ru.yandex.autoschool.weather.services.WeatherService;
 
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -44,7 +45,7 @@ public class IndexResource {
     @GET
     @Path("/weather")
     @ApiOperation(value = "", response = Weather.class)
-    public Weather getIndex(@QueryParam("city") String city,
+    public Weather getIndex(@NotNull @QueryParam("city") String city,
                             @DefaultValue(OpenWeatherService.DEFAULT_REGION)
                             @QueryParam("region") String region) {
         return weather.getWeather(city, region);
@@ -54,10 +55,10 @@ public class IndexResource {
      * Suggest for city
      *
      * @param query query to search (more than 2 symb)
-     *                               
+     *
      * @return cities list
      */
-    @GET              
+    @GET
     @Path("/suggest")
     public String suggest(@QueryParam("query") String query) {
         if (isBlank(query) || length(query) < 2) {
@@ -69,6 +70,27 @@ public class IndexResource {
         try (Stream<String> lines = lines(Paths.get(path))) {
             return lines.filter(line -> contains(line, query))
                     .limit(5)
+                    .collect(toList()).toString();
+        } catch (IOException e) {
+            throw new RuntimeException("Cant read suggests file", e);
+        }
+    }
+
+    /**
+     * List of all cities
+     *
+     * @param limit integer value
+     *
+     * @return cities list
+     */
+    @GET
+    @Path("/cities")
+    public String cities(@QueryParam("limit") int limit) {
+        String path = getClass().getClassLoader().getResource("data/suggest.json").getFile();
+
+        try (Stream<String> lines = lines(Paths.get(path))) {
+            return lines
+                    .limit(limit > 0 ? limit : Integer.MAX_VALUE)
                     .collect(toList()).toString();
         } catch (IOException e) {
             throw new RuntimeException("Cant read suggests file", e);
