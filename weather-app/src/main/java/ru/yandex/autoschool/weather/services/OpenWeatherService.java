@@ -8,6 +8,8 @@ import ru.yandex.autoschool.weather.models.Temperature;
 import ru.yandex.autoschool.weather.models.Weather;
 import ru.yandex.autoschool.weather.utils.ClientsBuilder;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import static jersey.repackaged.com.google.common.base.MoreObjects.firstNonNull;
 import static ru.yandex.autoschool.weather.models.Daypart.DAY;
 import static ru.yandex.autoschool.weather.models.Daypart.NIGHT;
@@ -54,8 +56,9 @@ public class OpenWeatherService implements WeatherService {
                 .withHumidity(response.getTemperature().getHumidity())
                 .withTemperatures(
                         new Temperature().withUnit("°C").withValue(kelvinToCelsius(responseTemperature)),
-                        new Temperature().withUnit("°K").withValue(responseTemperature),
-                        new Temperature().withUnit("°F").withValue(kelvinToFahrenheit(responseTemperature))
+                        new Temperature().withUnit("°K").withValue(responseTemperature + 10),
+                        new Temperature().withUnit("°F").withValue(kelvinToFahrenheit(responseTemperature)),
+                        new Temperature().withUnit("°Kaif").withValue(ThreadLocalRandom.current().nextInt(20, 25 + 1))
                 );
     }
 
