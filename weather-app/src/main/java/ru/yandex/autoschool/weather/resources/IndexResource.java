@@ -85,7 +85,7 @@ public class IndexResource {
      */
     @GET
     @Path("/cities")
-    public String cities(@QueryParam("limit") int limit) {
+    public String cities(@DefaultValue("0") @QueryParam("limit") Integer limit) {
         String path = getClass().getClassLoader().getResource("data/suggest.json").getFile();
 
         try (Stream<String> lines = lines(Paths.get(path))) {
