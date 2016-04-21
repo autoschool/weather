@@ -15,78 +15,118 @@
 
     <dependencies>
 
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-        </dependency>
-        
-        <!-- WEB -->
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.squareup.retrofit</groupId>
-            <artifactId>retrofit</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-        </dependency>
-
         <!-- Commons -->
         <dependency>
             <groupId>org.jvnet.jaxb2_commons</groupId>
             <artifactId>jaxb2-basics</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <scope>test</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>com.github.detro</groupId>
-            <artifactId>phantomjsdriver</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>com.ibm.icu</groupId>
             <artifactId>icu4j</artifactId>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
 
+        <!-- H2 -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+
+        <!-- Hibernate -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.transaction</groupId>
+            <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+        </dependency>
+
+        <!-- Jersey -->
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.ext</groupId>
+            <artifactId>jersey-spring3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-common</artifactId>
+        </dependency>
+
+        <!-- Logger -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+        </dependency>
+
+        <!-- Retrofit -->
+        <dependency>
+            <groupId>com.squareup.retrofit</groupId>
+            <artifactId>retrofit</artifactId>
+        </dependency>
+
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+        </dependency>
+
+        <!-- Swagger -->
         <dependency>
             <groupId>com.wordnik</groupId>
             <artifactId>swagger-annotations</artifactId>
         </dependency>
 
+        <!-- Test -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.detro</groupId>
+            <artifactId>phantomjsdriver</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.ext</groupId>
             <artifactId>jersey-bean-validation</artifactId>
         </dependency>
 
         <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.glassfish.jersey.test-framework.providers</groupId>
             <artifactId>jersey-test-framework-provider-jetty</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
     
     
@@ -109,7 +149,18 @@
                           <artifactId>gson</artifactId>
                           <version>2.3</version>
                       </dependency>
+                      <dependency>
+                          <groupId>org.hibernate</groupId>
+                          <artifactId>hibernate-entitymanager</artifactId>
+                          <version>${hibernate.version}</version>
+                      </dependency>
+                      <dependency>
+                          <groupId>org.hibernate.javax.persistence</groupId>
+                          <artifactId>hibernate-jpa-2.1-api</artifactId>
+                          <version>${javax-persistance.version}</version>
+                      </dependency>
                   </dependencies>
+
                   <configuration>
                       <schemaDirectory>src/main/resources/xsd</schemaDirectory>
                       <bindingDirectory>src/main/resources/xsd</bindingDirectory>
@@ -118,15 +169,15 @@
                       <verbose>true</verbose>
                       <readOnly>true</readOnly>
                       <args>
-                          <arg>-enableIntrospection</arg>
                           <arg>-no-header</arg>
                           <arg>-Xxew</arg>
                           <arg>-Xxew:instantiate lazy</arg>
-                          <arg>-Xfluent-api</arg>
                           <arg>-Xinheritance</arg>
                           <arg>-Xannotate</arg>
                           <arg>-Xequals</arg>
                           <arg>-XhashCode</arg>
+                          <arg>-Xfluent-api</arg>
+                          <arg>-enableIntrospection</arg>
                       </args>
                       <plugins>
                           <plugin>
@@ -179,10 +230,6 @@
                   <groupId>org.apache.maven.plugins</groupId>
                   <artifactId>maven-war-plugin</artifactId>
                   <version>2.5</version>
-                  <configuration>
-                      <failOnMissingWebXml>false</failOnMissingWebXml>
-                      <webappDirectory>${project.build.directory}/www</webappDirectory>
-                  </configuration>
               </plugin>
 
               <plugin>
@@ -238,7 +285,7 @@
                               <arguments>-p</arguments>
                           </configuration>
                       </execution>
-                      
+
                       <execution>
                           <id>raml2html install</id>
                           <goals>
@@ -247,8 +294,8 @@
                           <configuration>
                               <arguments>i raml2html</arguments>
                           </configuration>
-                      </execution> 
-                      
+                      </execution>
+
                       <execution>
                           <id>raml2html launch</id>
                           <phase>
