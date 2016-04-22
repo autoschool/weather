@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.1"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:annox="http://annox.dev.java.net"
+               jaxb:extensionBindingPrefixes="itn annox"
+               schemaLocation="entity.xsd">
+
+    <jaxb:bindings node="//xs:complexType" multiple="true">
+        <annox:annotate target="class">
+            <annox:annotate annox:class="javax.persistence.Entity"/>
+        </annox:annotate>
+    </jaxb:bindings>
+
+    <jaxb:bindings node="//xs:complexType//xs:element[@name='id']" multiple="true">
+        <annox:annotate target="field">
+            <annox:annotate annox:class="javax.persistence.Id"/>
+            <annox:annotate annox:class="javax.persistence.GeneratedValue"/>
+        </annox:annotate>
+    </jaxb:bindings>
+
+    <jaxb:bindings node="//xs:complexType[@name='City']//xs:element[@name='coordinates']">
+        <annox:annotate target="field">
+            <annox:annotate annox:class="javax.persistence.OneToOne" cascade="ALL"/>
+        </annox:annotate>
+    </jaxb:bindings>
+</jaxb:bindings>

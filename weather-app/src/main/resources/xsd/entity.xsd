@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:ns="urn:entity.weather.autoschool.yandex.ru"
+           targetNamespace="urn:entity.weather.autoschool.yandex.ru">
+
+    <xs:element name="city" type="ns:City"/>
+    <xs:complexType name="City">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="uid" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="country" type="xs:string"/>
+            <xs:element name="coordinates" type="ns:Coordinates"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Coordinates">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="latitude" type="xs:double"/>
+            <xs:element name="longitude" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
