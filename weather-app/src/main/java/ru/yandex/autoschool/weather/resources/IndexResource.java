@@ -1,6 +1,5 @@
 package ru.yandex.autoschool.weather.resources;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wordnik.swagger.annotations.ApiOperation;
 import ru.yandex.autoschool.weather.entity.City;
 import ru.yandex.autoschool.weather.models.Weather;
@@ -35,6 +34,8 @@ import static ru.yandex.autoschool.weather.utils.JacksonUtils.fromJson;
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 public class IndexResource {
+
+    public static final String CITIES_FILE_PATH = "data/cities.json";
 
     @Inject
     private WeatherService weather;
@@ -71,7 +72,7 @@ public class IndexResource {
             return Collections.emptyList();
         }
 
-        String path = getClass().getClassLoader().getResource("data/cities.json").getFile();
+        String path = getClass().getClassLoader().getResource(CITIES_FILE_PATH).getFile();
         try (Stream<String> lines = lines(Paths.get(path))) {
             List<City> cities = lines.map(line -> fromJson(line, City.class))
                     .filter(city -> city != null)
@@ -107,7 +108,7 @@ public class IndexResource {
     @GET
     @Path("/cities")
     public String cities(@DefaultValue("0") @QueryParam("limit") Integer limit) {
-        String path = getClass().getClassLoader().getResource("data/suggest.json").getFile();
+        String path = getClass().getClassLoader().getResource(CITIES_FILE_PATH).getFile();
 
         try (Stream<String> lines = lines(Paths.get(path))) {
             return lines
