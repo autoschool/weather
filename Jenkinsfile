@@ -18,5 +18,5 @@ node('digitalocean') {
     stage 'Deploy'
     sh "docker rm -f weather || true"
     sh 'docker rmi $(docker images | grep weather | tail -n +3 | awk \'{print $3}\')'
-    sh "docker run -d --name weather -it -p -v /etc/weather/server 80:8080 weather:${env.BUILD_TAG}"
+    sh "docker run -d --name weather -it -v /etc/weather/server:/etc/weather/server -p 80:8080 weather:${env.BUILD_TAG}"
 }
