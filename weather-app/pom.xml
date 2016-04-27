@@ -74,6 +74,12 @@
             <artifactId>slf4j-simple</artifactId>
         </dependency>
 
+        <!-- MySQL -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
         <!-- Retrofit -->
         <dependency>
             <groupId>com.squareup.retrofit</groupId>
