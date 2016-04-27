@@ -18,7 +18,7 @@
         <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
         <property name="locations">
             <list>
-                <value>classpath*:weather.properties</value>
+                <value>classpath*:server.properties</value>
             </list>
         </property>
     </bean>

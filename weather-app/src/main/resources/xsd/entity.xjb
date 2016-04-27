@@ -14,13 +14,7 @@
     <jaxb:bindings node="//xs:complexType//xs:element[@name='id']" multiple="true">
         <annox:annotate target="field">
             <annox:annotate annox:class="javax.persistence.Id"/>
-            <annox:annotate annox:class="javax.persistence.GeneratedValue"/>
-        </annox:annotate>
-    </jaxb:bindings>
-
-    <jaxb:bindings node="//xs:complexType[@name='City']//xs:element[@name='coordinates']">
-        <annox:annotate target="field">
-            <annox:annotate annox:class="javax.persistence.OneToOne" cascade="ALL"/>
+            <annox:annotate annox:class="javax.persistence.GeneratedValue" strategy="IDENTITY"/>
         </annox:annotate>
     </jaxb:bindings>
 </jaxb:bindings>

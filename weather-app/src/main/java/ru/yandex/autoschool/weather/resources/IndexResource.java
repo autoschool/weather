@@ -6,6 +6,7 @@ import ru.yandex.autoschool.weather.models.Weather;
 import ru.yandex.autoschool.weather.repositories.CityRepository;
 import ru.yandex.autoschool.weather.services.OpenWeatherService;
 import ru.yandex.autoschool.weather.services.WeatherService;
+import ru.yandex.autoschool.weather.utils.ResourceUtils;
 
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
@@ -32,7 +33,7 @@ import static ru.yandex.autoschool.weather.utils.JacksonUtils.fromJson;
  * index resource
  */
 @Path("/")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(ResourceUtils.APPLICATION_JSON_UTF8)
 public class IndexResource {
 
     public static final String CITIES_FILE_PATH = "data/cities.json";

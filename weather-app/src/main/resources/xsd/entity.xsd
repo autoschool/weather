@@ -11,16 +11,6 @@
             <xs:element name="uid" type="xs:long"/>
             <xs:element name="name" type="xs:string"/>
             <xs:element name="country" type="xs:string"/>
-            <xs:element name="coordinates" type="ns:Coordinates"/>
         </xs:sequence>
     </xs:complexType>
-
-    <xs:complexType name="Coordinates">
-        <xs:sequence>
-            <xs:element name="id" type="xs:long"/>
-            <xs:element name="latitude" type="xs:double"/>
-            <xs:element name="longitude" type="xs:double"/>
-        </xs:sequence>
-    </xs:complexType>
-
 </xs:schema>
