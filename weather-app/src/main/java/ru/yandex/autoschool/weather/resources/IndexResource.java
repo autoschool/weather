@@ -15,9 +15,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -69,16 +69,18 @@ public class IndexResource {
     @Path("/init")
     @SuppressWarnings("unchecked")
     public List<City> init() {
-        if (cityRepository.count() != 0) {
-            return Collections.emptyList();
-        }
-
         String path = getClass().getClassLoader().getResource(CITIES_FILE_PATH).getFile();
         try (Stream<String> lines = lines(Paths.get(path))) {
+            List<City> result = new ArrayList<>();
             List<City> cities = lines.map(line -> fromJson(line, City.class))
                     .filter(city -> city != null)
                     .collect(Collectors.toList());
-            return cityRepository.save(cities);
+            cities.stream().forEach(city -> {
+                if (cityRepository.findByName(city.getName()).isEmpty()) {
+                    result.add(cityRepository.save(city));
+                }
+            });
+            return result;
         } catch (IOException e) {
             throw new RuntimeException("Cant read suggests file", e);
         }
