@@ -13,6 +13,7 @@
     <description>App to provide example for app with bunch of bugs to be testable</description>
 
     <modules>
+        <module>weather-web</module>
         <module>weather-app</module>
         <module>weather-runner</module>
     </modules>
@@ -31,6 +32,12 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>ru.yandex.autoschool</groupId>
+                <artifactId>weather-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.apache.commons</groupId>
