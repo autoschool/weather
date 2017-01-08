@@ -1,12 +1,13 @@
-package ru.yandex.autoschool.weather.resources;
+package ru.yandex.autoschool.weather.rest.resources;
 
-import com.wordnik.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import ru.yandex.autoschool.weather.entity.City;
 import ru.yandex.autoschool.weather.models.Weather;
 import ru.yandex.autoschool.weather.repositories.CityRepository;
 import ru.yandex.autoschool.weather.services.OpenWeatherService;
 import ru.yandex.autoschool.weather.services.WeatherService;
-import ru.yandex.autoschool.weather.utils.ResourceUtils;
+import ru.yandex.autoschool.weather.utils.MediaTypeConst;
 
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
@@ -17,23 +18,22 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.nio.file.Files.lines;
 import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.length;
-import static ru.yandex.autoschool.weather.utils.JacksonUtils.fromJson;
 
 /**
  * index resource
  */
 @Path("/")
-@Produces(ResourceUtils.APPLICATION_JSON_UTF8)
+@Produces(MediaTypeConst.APPLICATION_JSON_UTF8)
+@Component
+@Slf4j
 public class IndexResource {
 
     public static final String CITIES_FILE_PATH = "data/cities.json";
@@ -53,39 +53,11 @@ public class IndexResource {
      */
     @GET
     @Path("/weather")
-    @ApiOperation(value = "", response = Weather.class)
     public Weather getIndex(@NotNull @QueryParam("city") String city,
                             @DefaultValue(OpenWeatherService.DEFAULT_REGION)
                             @QueryParam("region") String region) {
         return weather.getWeather(city, region);
     }
-
-    /**
-     * Init of all cities
-     *
-     * @return cities list
-     */
-    @GET
-    @Path("/init")
-    @SuppressWarnings("unchecked")
-    public List<City> init() {
-        String path = getClass().getClassLoader().getResource(CITIES_FILE_PATH).getFile();
-        try (Stream<String> lines = lines(Paths.get(path))) {
-            List<City> result = new ArrayList<>();
-            List<City> cities = lines.map(line -> fromJson(line, City.class))
-                    .filter(city -> city != null)
-                    .collect(Collectors.toList());
-            cities.stream().forEach(city -> {
-                if (cityRepository.findByName(city.getName()).isEmpty()) {
-                    result.add(cityRepository.save(city));
-                }
-            });
-            return result;
-        } catch (IOException e) {
-            throw new RuntimeException("Cant read suggests file", e);
-        }
-    }
-
 
     /**
      * Suggest for city

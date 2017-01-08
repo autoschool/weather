@@ -1,46 +1,45 @@
 package ru.yandex.autoschool.weather.services;
 
+import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 import ru.yandex.autoschool.weather.clients.OpenWeatherClient;
 import ru.yandex.autoschool.weather.clients.OpenWeatherDetails;
 import ru.yandex.autoschool.weather.clients.OpenWeatherResponse;
 import ru.yandex.autoschool.weather.models.Daypart;
 import ru.yandex.autoschool.weather.models.Temperature;
 import ru.yandex.autoschool.weather.models.Weather;
-import ru.yandex.autoschool.weather.utils.ClientsBuilder;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 import static jersey.repackaged.com.google.common.base.MoreObjects.firstNonNull;
 import static ru.yandex.autoschool.weather.models.Daypart.DAY;
 import static ru.yandex.autoschool.weather.models.Daypart.NIGHT;
-import static ru.yandex.autoschool.weather.utils.TemperatureConverter.kelvinToCelsius;
-import static ru.yandex.autoschool.weather.utils.TemperatureConverter.kelvinToFahrenheit;
+import static ru.yandex.autoschool.weather.utils.TemperatureUnit.CELSIUS;
+import static ru.yandex.autoschool.weather.utils.TemperatureUnit.FAHRENHEIT;
+import static ru.yandex.autoschool.weather.utils.TemperatureUnit.KELVIN;
 
 /**
  * eroshenkoam
  * 29/10/14
  */
+@Component
+@Profile("prod")
+@AllArgsConstructor
 public class OpenWeatherService implements WeatherService {
 
     public static final String DEFAULT_CITY = "Saint Petersburg";
     public static final String DEFAULT_REGION = "ru";
 
-    private OpenWeatherClient service;
-
-    public OpenWeatherService() {
-        this.service = ClientsBuilder.getOpenWeatherService();
-    }
-
-    public OpenWeatherService(OpenWeatherClient service) {
-        this.service = service;
-    }
+    private OpenWeatherClient client;
 
     public Weather getWeather(String city, String region) {
         String weatherQuery = String.format("%s,%s",
                 firstNonNull(city, DEFAULT_CITY),
-                firstNonNull(region, DEFAULT_REGION));
+                firstNonNull(region, DEFAULT_REGION)
+        );
 
-        OpenWeatherResponse response = service.getWeather(weatherQuery, OpenWeatherClient.APP_ID);
+        OpenWeatherResponse response = client.weather(weatherQuery);
 
         double responseTemperature = response.getTemperature().getValue();
         OpenWeatherDetails details = response.getDetails().stream()
@@ -55,9 +54,9 @@ public class OpenWeatherService implements WeatherService {
                 .withWind(response.getWind().getSpeed())
                 .withHumidity(response.getTemperature().getHumidity())
                 .withTemperatures(
-                        new Temperature().withUnit("°C").withValue(kelvinToCelsius(responseTemperature)),
-                        new Temperature().withUnit("°K").withValue(responseTemperature + 10),
-                        new Temperature().withUnit("°F").withValue(kelvinToFahrenheit(responseTemperature)),
+                        new Temperature().withUnit(CELSIUS.toString()).withValue(CELSIUS.fromKelvin(responseTemperature)),
+                        new Temperature().withUnit(KELVIN.toString()).withValue(responseTemperature + 10), // +10 - its joke!
+                        new Temperature().withUnit(FAHRENHEIT.toString()).withValue(FAHRENHEIT.fromKelvin(responseTemperature)),
                         new Temperature().withUnit("°Kaif").withValue(ThreadLocalRandom.current().nextInt(20, 25 + 1))
                 );
     }

@@ -9,7 +9,9 @@ import java.util.Collection;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
-import static ru.yandex.autoschool.weather.utils.TemperatureConverter.*;
+import static ru.yandex.autoschool.weather.utils.TemperatureUnit.CELSIUS;
+import static ru.yandex.autoschool.weather.utils.TemperatureUnit.FAHRENHEIT;
+import static ru.yandex.autoschool.weather.utils.TemperatureUnit.KELVIN;
 
 
 /**
@@ -39,21 +41,21 @@ public class TemperatureConverterTest {
 
     @Test
     public void celsiusToKelvinConverterTest() {
-        assertThat(kelvin, equalTo(celsiusToKelvin(celsius)));
+        assertThat(kelvin, equalTo(KELVIN.fromCelsius(celsius)));
     }
 
     @Test
     public void kelvinToCelsiusConverterTest() {
-        assertThat(celsius, equalTo(kelvinToCelsius(kelvin)));
+        assertThat(celsius, equalTo(CELSIUS.fromKelvin(kelvin)));
     }
-    
+
     @Test
     public void kelvinTofahrenheitConverterTest() {
-        assertThat(fahrenheit, equalTo(kelvinToFahrenheit(kelvin)));
+        assertThat(fahrenheit, equalTo(FAHRENHEIT.fromKelvin(kelvin)));
     }
-    
+
     @Test
     public void fahrenheitToKelvinConverterTest() {
-        assertThat(kelvin, equalTo(fahrenheitToKelvin(fahrenheit)));
+        assertThat(kelvin, equalTo(KELVIN.fromFahrenheit(fahrenheit)));
     }
 }

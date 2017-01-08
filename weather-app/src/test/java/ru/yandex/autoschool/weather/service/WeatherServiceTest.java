@@ -62,7 +62,7 @@ public class WeatherServiceTest {
                 .withDetails(new OpenWeatherDetails().withIcon("17n"))
                 .withTemperature(new OpenWeatherTemperature().withValue(temperature));
 
-        when(client.getWeather(String.format("%s,%s", city, region), OpenWeatherClient.APP_ID)).thenReturn(response);
+        when(client.weather(String.format("%s,%s", city, region))).thenReturn(response);
         return client;
     }
 }

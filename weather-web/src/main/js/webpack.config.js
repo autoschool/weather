@@ -2,6 +2,20 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
+const path = require('path');
+
+const PATHS = {
+    build: path.join(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        'target',
+        'classes',
+        'META-INF',
+        'resources'
+    )
+};
 
 module.exports = {
     entry: {
@@ -17,7 +31,7 @@ module.exports = {
         ]
     },
     output: {
-        path: __dirname + '/../../target/www/',
+        path: PATHS.build,
         filename: '[name].js',
         chunkFilename: '[id].js'
     },

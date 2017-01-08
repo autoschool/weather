@@ -2,10 +2,12 @@ package ru.yandex.autoschool.weather.utils;
 
 import org.hibernate.cfg.ImprovedNamingStrategy;
 import org.hibernate.internal.util.StringHelper;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Artem Eroshenko <erosenkoam@me.com>
  */
+@Component
 public class NamingStrategy extends ImprovedNamingStrategy {
 
     public String classToTableName(String className) {

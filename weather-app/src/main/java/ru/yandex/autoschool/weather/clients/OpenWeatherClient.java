@@ -1,7 +1,12 @@
 package ru.yandex.autoschool.weather.clients;
 
-import retrofit.http.GET;
-import retrofit.http.Query;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import feign.Feign;
+import feign.Logger;
+import feign.Param;
+import feign.RequestLine;
+import feign.jackson.JacksonDecoder;
+import feign.slf4j.Slf4jLogger;
 
 /**
  * eroshenkoam
@@ -9,8 +14,16 @@ import retrofit.http.Query;
  */
 public interface OpenWeatherClient {
 
-    String APP_ID = "8d59609d9f7710500ed92e7a199c2d14";
+    @RequestLine("GET /data/2.5/weather?q={query}")
+    OpenWeatherResponse weather(@Param("query") String query);
 
-    @GET("/data/2.5/weather")
-    OpenWeatherResponse getWeather(@Query("q") String query, @Query("APPID") String appId);
+    static OpenWeatherClient connect(String token, ObjectMapper mapper) {
+        return Feign.builder()
+                .decoder(new JacksonDecoder(mapper))
+                .logger(new Slf4jLogger(OpenWeatherClient.class))
+                .logLevel(Logger.Level.FULL)
+                .requestInterceptor(template -> template.query("APPID", token))
+                .target(OpenWeatherClient.class, "http://api.openweathermap.org");
+    }
 }
+

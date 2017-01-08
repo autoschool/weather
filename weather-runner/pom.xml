@@ -26,30 +26,13 @@
                     <configuration>
                         <outputDirectory>${project.build.directory}/export</outputDirectory>
                         <artifactItems>
-                            
-                            <artifactItem>
-                                <groupId>org.eclipse.jetty</groupId>
-                                <artifactId>jetty-runner</artifactId>
-                                <version>${jetty.version}</version>
-                                <destFileName>runner.jar</destFileName>
-                            </artifactItem>
 
                             <artifactItem>
                                 <groupId>${project.groupId}</groupId>
                                 <artifactId>weather-app</artifactId>
                                 <version>${project.version}</version>
-                                <destFileName>server.war</destFileName>
-                                <type>war</type>
+                                <destFileName>weather.jar</destFileName>
                             </artifactItem>
-                            <!-- java -jar target/runner.jar -stop-port 9090 -stop-key bla target/*.war-->
-
-                            <artifactItem>
-                                <groupId>org.eclipse.jetty</groupId>
-                                <artifactId>jetty-start</artifactId>
-                                <version>${jetty.version}</version>
-                                <destFileName>stop.jar</destFileName>
-                            </artifactItem>
-                            <!--java -jar target/start.jar STOP.PORT=9090 STOP.KEY=bla -stop-->
 
                         </artifactItems>
                     </configuration>
