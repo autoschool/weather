@@ -12,8 +12,9 @@ import java.util.Random;
 import static java.util.Arrays.asList;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static ru.yandex.autoschool.weather.models.Daypart.DAY;
-import static ru.yandex.autoschool.weather.utils.TemperatureConverter.kelvinToCelsius;
-import static ru.yandex.autoschool.weather.utils.TemperatureConverter.kelvinToFahrenheit;
+import static ru.yandex.autoschool.weather.utils.TemperatureUnit.CELSIUS;
+import static ru.yandex.autoschool.weather.utils.TemperatureUnit.FAHRENHEIT;
+import static ru.yandex.autoschool.weather.utils.TemperatureUnit.KELVIN;
 
 /**
  * eroshenkoam
@@ -35,9 +36,9 @@ public class StaticWeatherService implements WeatherService {
                 .withHumidity(new Random().nextInt(100))
                 .withWind(11)
                 .withTemperatures(
-                        new Temperature().withUnit("°C").withValue(kelvinToCelsius(responseTemperature)),
-                        new Temperature().withUnit("°K").withValue(responseTemperature),
-                        new Temperature().withUnit("°F").withValue(kelvinToFahrenheit(responseTemperature))
+                        new Temperature().withUnit(CELSIUS.toString()).withValue(CELSIUS.fromKelvin(responseTemperature)),
+                        new Temperature().withUnit(KELVIN.toString()).withValue(responseTemperature),
+                        new Temperature().withUnit(FAHRENHEIT.toString()).withValue(FAHRENHEIT.fromKelvin(responseTemperature))
                 );
     }
 }
