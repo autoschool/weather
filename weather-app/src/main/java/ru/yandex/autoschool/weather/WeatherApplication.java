@@ -1,5 +1,7 @@
 package ru.yandex.autoschool.weather;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +17,7 @@ public class WeatherApplication {
 
 	@Bean
 	@Profile("prod")
-	public OpenWeatherClient openWeatherClient() {
-		return OpenWeatherClient.getOpenWeatherService();
+	public OpenWeatherClient openWeatherClient(@Value("${owm.token}") String token, ObjectMapper mapper) {
+		return OpenWeatherClient.connect(token, mapper);
 	}
 }

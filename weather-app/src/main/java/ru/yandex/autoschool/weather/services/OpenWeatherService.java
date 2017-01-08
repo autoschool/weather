@@ -10,7 +10,6 @@ import ru.yandex.autoschool.weather.models.Daypart;
 import ru.yandex.autoschool.weather.models.Temperature;
 import ru.yandex.autoschool.weather.models.Weather;
 
-import javax.inject.Inject;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static jersey.repackaged.com.google.common.base.MoreObjects.firstNonNull;
@@ -39,7 +38,7 @@ public class OpenWeatherService implements WeatherService {
                 firstNonNull(region, DEFAULT_REGION)
         );
 
-        OpenWeatherResponse response = client.getWeather(weatherQuery, OpenWeatherClient.APP_ID);
+        OpenWeatherResponse response = client.weather(weatherQuery);
 
         double responseTemperature = response.getTemperature().getValue();
         OpenWeatherDetails details = response.getDetails().stream()
@@ -55,7 +54,7 @@ public class OpenWeatherService implements WeatherService {
                 .withHumidity(response.getTemperature().getHumidity())
                 .withTemperatures(
                         new Temperature().withUnit("°C").withValue(kelvinToCelsius(responseTemperature)),
-                        new Temperature().withUnit("°K").withValue(responseTemperature + 10),
+                        new Temperature().withUnit("°K").withValue(responseTemperature + 10), // +10 - its joke!
                         new Temperature().withUnit("°F").withValue(kelvinToFahrenheit(responseTemperature)),
                         new Temperature().withUnit("°Kaif").withValue(ThreadLocalRandom.current().nextInt(20, 25 + 1))
                 );

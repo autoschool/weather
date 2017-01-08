@@ -1,6 +1,5 @@
 package ru.yandex.autoschool.weather.rest.resources;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.yandex.autoschool.weather.entity.City;
@@ -8,7 +7,7 @@ import ru.yandex.autoschool.weather.models.Weather;
 import ru.yandex.autoschool.weather.repositories.CityRepository;
 import ru.yandex.autoschool.weather.services.OpenWeatherService;
 import ru.yandex.autoschool.weather.services.WeatherService;
-import ru.yandex.autoschool.weather.utils.ResourceUtils;
+import ru.yandex.autoschool.weather.utils.MediaTypeConst;
 
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
@@ -21,8 +20,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.nio.file.Files.lines;
@@ -34,7 +31,7 @@ import static org.apache.commons.lang3.StringUtils.length;
  * index resource
  */
 @Path("/")
-@Produces(ResourceUtils.APPLICATION_JSON_UTF8)
+@Produces(MediaTypeConst.APPLICATION_JSON_UTF8)
 @Component
 @Slf4j
 public class IndexResource {
@@ -46,9 +43,6 @@ public class IndexResource {
 
     @Inject
     private CityRepository cityRepository;
-
-    @Inject
-    private ObjectMapper mapper;
 
     /**
      * Returns actual weather for city
@@ -63,35 +57,6 @@ public class IndexResource {
                             @DefaultValue(OpenWeatherService.DEFAULT_REGION)
                             @QueryParam("region") String region) {
         return weather.getWeather(city, region);
-    }
-
-    /**
-     * Init of all cities
-     *
-     * @return cities list
-     */
-    @GET
-    @Path("/init")
-    @SuppressWarnings("unchecked")
-    public List<City> init() {
-        String path = getClass().getClassLoader().getResource(CITIES_FILE_PATH).getFile();
-        try (Stream<String> lines = lines(Paths.get(path))) {
-            return lines
-                    .map(line -> {
-                        try {
-                            return mapper.readValue(line, City.class);
-                        } catch (IOException e) {
-                            log.debug("Can't read city from json", e);
-                            return null;
-                        }
-                    })
-                    .filter(Objects::nonNull)
-                    .filter(city -> cityRepository.findByName(city.getName()).isEmpty())
-                    .map(city ->  cityRepository.save(city))
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            throw new RuntimeException("Cant read suggests file", e);
-        }
     }
 
     /**
