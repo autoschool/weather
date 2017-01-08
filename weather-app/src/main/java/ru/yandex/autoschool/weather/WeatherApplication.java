@@ -1,16 +1,21 @@
 package ru.yandex.autoschool.weather;
 
-import org.glassfish.jersey.server.ResourceConfig;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
+import ru.yandex.autoschool.weather.clients.OpenWeatherClient;
 
-import javax.ws.rs.ApplicationPath;
+@SpringBootApplication
+public class WeatherApplication {
 
-/**
- * eroshenkoam
- * 29/10/14
- */
-@ApplicationPath("/api")
-public class WeatherApplication extends ResourceConfig {
-    public WeatherApplication() {
-        packages(WeatherApplication.class.getPackage().getName());
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(WeatherApplication.class, args);
+	}
+
+	@Bean
+	@Profile("prod")
+	public OpenWeatherClient openWeatherClient() {
+		return OpenWeatherClient.getOpenWeatherService();
+	}
 }

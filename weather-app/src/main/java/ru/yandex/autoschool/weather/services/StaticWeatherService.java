@@ -1,5 +1,7 @@
 package ru.yandex.autoschool.weather.services;
 
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 import ru.yandex.autoschool.weather.models.Temperature;
 import ru.yandex.autoschool.weather.models.Weather;
 
@@ -17,6 +19,8 @@ import static ru.yandex.autoschool.weather.utils.TemperatureConverter.kelvinToFa
  * eroshenkoam
  * 29/10/14
  */
+@Component
+@Profile("dev")
 public class StaticWeatherService implements WeatherService {
 
     public Weather getWeather(String city, String region) {

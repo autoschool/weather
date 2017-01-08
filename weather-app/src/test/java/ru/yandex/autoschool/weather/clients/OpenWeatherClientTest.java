@@ -1,7 +1,6 @@
 package ru.yandex.autoschool.weather.clients;
 
 import org.junit.Test;
-import ru.yandex.autoschool.weather.utils.ClientsBuilder;
 
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -14,7 +13,7 @@ public class OpenWeatherClientTest {
 
     @Test
     public void testOpenWeatherClientDetails() {
-        OpenWeatherClient client = ClientsBuilder.getOpenWeatherService();
+        OpenWeatherClient client = OpenWeatherClient.getOpenWeatherService();
         OpenWeatherResponse weatherResponse = client.getWeather("Saint Petersburg,ru", OpenWeatherClient.APP_ID);
 
         assertThat(weatherResponse, notNullValue());

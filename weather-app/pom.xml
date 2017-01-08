@@ -14,139 +14,69 @@
     <name>Weather Application</name>
 
     <dependencies>
-
-        <!-- Commons -->
         <dependency>
-            <groupId>org.jvnet.jaxb2_commons</groupId>
-            <artifactId>jaxb2-basics</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.ibm.icu</groupId>
-            <artifactId>icu4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
 
-        <!-- H2 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jersey</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
-        <!-- Hibernate -->
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.spec.javax.transaction</groupId>
-            <artifactId>jboss-transaction-api_1.1_spec</artifactId>
-        </dependency>
-
-        <!-- Jersey -->
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.ext</groupId>
-            <artifactId>jersey-spring3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-common</artifactId>
-        </dependency>
-
-        <!-- Logger -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-        </dependency>
-
-        <!-- MySQL -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-        <!-- Retrofit -->
-        <dependency>
-            <groupId>com.squareup.retrofit</groupId>
-            <artifactId>retrofit</artifactId>
-        </dependency>
-
-        <!-- Spring -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-        </dependency>
-
-        <!-- Swagger -->
-        <dependency>
-            <groupId>com.wordnik</groupId>
-            <artifactId>swagger-annotations</artifactId>
-        </dependency>
-
-        <!-- Test -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
+            <groupId>org.springframework.restdocs</groupId>
+            <artifactId>spring-restdocs-mockmvc</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.detro</groupId>
-            <artifactId>phantomjsdriver</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>xml-apis</groupId>
-            <artifactId>xml-apis</artifactId>
-            <version>1.4.01</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.ext</groupId>
-            <artifactId>jersey-bean-validation</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.test-framework.providers</groupId>
-            <artifactId>jersey-test-framework-provider-jetty</artifactId>
-            <scope>test</scope>
-        </dependency>
+
     </dependencies>
-    
-    
+
+
     <build>
           <plugins>
               <plugin>
                   <groupId>org.jvnet.jaxb2.maven2</groupId>
                   <artifactId>maven-jaxb2-plugin</artifactId>
-                  <version>0.13.0</version>
+                  <version>0.13.1</version>
                   <executions>
                       <execution>
                           <goals>
@@ -156,25 +86,15 @@
                   </executions>
                   <dependencies>
                       <dependency>
-                          <groupId>com.google.code.gson</groupId>
-                          <artifactId>gson</artifactId>
-                          <version>2.3</version>
-                      </dependency>
-                      <dependency>
                           <groupId>org.hibernate</groupId>
                           <artifactId>hibernate-entitymanager</artifactId>
                           <version>${hibernate.version}</version>
                       </dependency>
-                      <dependency>
-                          <groupId>org.hibernate.javax.persistence</groupId>
-                          <artifactId>hibernate-jpa-2.1-api</artifactId>
-                          <version>${javax-persistance.version}</version>
-                      </dependency>
                   </dependencies>
 
                   <configuration>
-                      <schemaDirectory>src/main/resources/xsd</schemaDirectory>
-                      <bindingDirectory>src/main/resources/xsd</bindingDirectory>
+                      <schemaDirectory>src/main/xsd</schemaDirectory>
+                      <bindingDirectory>src/main/xsd</bindingDirectory>
                       <removeOldOutput>true</removeOldOutput>
                       <extension>true</extension>
                       <verbose>true</verbose>
@@ -185,8 +105,6 @@
                           <arg>-Xxew:instantiate lazy</arg>
                           <arg>-Xinheritance</arg>
                           <arg>-Xannotate</arg>
-                          <arg>-Xequals</arg>
-                          <arg>-XhashCode</arg>
                           <arg>-Xfluent-api</arg>
                           <arg>-enableIntrospection</arg>
                       </args>
@@ -218,7 +136,7 @@
               <plugin>
                   <groupId>org.apache.maven.plugins</groupId>
                   <artifactId>maven-surefire-plugin</artifactId>
-                  <version>2.16</version>
+                  <version>2.19.1</version>
                   <configuration>
                       <excludes>
                           <exclude>**/web/**</exclude>
@@ -234,37 +152,6 @@
                       <includes>
                           <include>**/web/**</include>
                       </includes>
-                  </configuration>
-              </plugin>
-
-              <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-war-plugin</artifactId>
-                  <version>2.5</version>
-                  <configuration>
-                      <failOnMissingWebXml>false</failOnMissingWebXml>
-                      <webappDirectory>${project.build.directory}/www</webappDirectory>
-                  </configuration>
-              </plugin>
-
-              <plugin>
-                  <groupId>org.eclipse.jetty</groupId>
-                  <artifactId>jetty-maven-plugin</artifactId>
-                  <version>${jetty.version}</version>
-                  <configuration>
-                      <scanIntervalSeconds>0</scanIntervalSeconds>
-                      <webApp>
-                          <contextPath>/</contextPath>
-                      </webApp>
-                      <stopPort>9847</stopPort>
-                      <stopKey>weather-local</stopKey>
-                      <jvmArgs>
-                          -Xmx1024m
-                          -XX:MaxPermSize=512m
-                          -Ddb.path=${project.build.directory}/db
-                      </jvmArgs>
-                      <webAppSourceDirectory>${project.build.directory}/www</webAppSourceDirectory>
-                      <goal>run-forked</goal>
                   </configuration>
               </plugin>
 
