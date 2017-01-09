@@ -2,9 +2,6 @@ spring:
   profiles:
     active: dev
 
-owm:
-  token: 123
-
 logging:
   level:
     ru.yandex.autoschool.weather: DEBUG
