@@ -1,6 +1,9 @@
 spring:
   profiles:
     active: dev
+  cache:
+    caffeine:
+      spec: maximumSize=2000,expireAfterWrite=60m
 
 logging:
   level:
