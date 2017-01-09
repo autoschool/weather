@@ -8,6 +8,7 @@ import ru.yandex.autoschool.weather.models.Weather;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static java.util.Arrays.asList;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
@@ -25,7 +26,7 @@ import static ru.yandex.autoschool.weather.utils.TemperatureUnit.KELVIN;
 public class StaticWeatherService implements WeatherService {
 
     public Weather getWeather(String city, String region) {
-        double responseTemperature = 1.1;
+        double responseTemperature = ThreadLocalRandom.current().nextInt(-1, 5 + 1);
         return new Weather()
                 .withCity(isEmpty(city) ? "Default City" : city)
                 .withWeathercode(asList(200, 300, 500, 600, 800).get(new Random().nextInt(5)))

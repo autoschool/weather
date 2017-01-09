@@ -9,3 +9,14 @@ logging:
   level:
     ru.yandex.autoschool.weather: DEBUG
 
+management:
+  port: 9090
+endpoints:
+  enabled: false
+  env:
+    enabled: true
+  health:
+    enabled: true
+  metrics:
+    enabled: true
+

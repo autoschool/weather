@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.boot.actuate.metrics.CounterService;
+import ru.yandex.autoschool.weather.service.NoopCounterService;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -22,7 +24,8 @@ public class OpenWeatherClientTest {
         OpenWeatherClient client = OpenWeatherClient.connect("4d25b277cef7562ce992dd3cba00f97e",
                 new ObjectMapper()
                         .registerModule(new JaxbAnnotationModule())
-                        .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                        .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES),
+                new NoopCounterService()
         );
         OpenWeatherResponse weatherResponse = client.weather("Saint Petersburg,ru");
 
