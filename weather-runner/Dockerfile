@@ -10,4 +10,4 @@ WORKDIR ${WEATHER_BASE_DIR}
 VOLUME /etc/weather/server
 EXPOSE 8080
 
-CMD ["java", "-Xbootclasspath/a:/etc/weather/server", "-jar", "weather.jar", "-Dspring.profiles.active=prod"]
+CMD ["java", "-Xbootclasspath/a:/etc/weather/server", "-jar", "weather.jar", "--spring.profiles.active=prod"]
