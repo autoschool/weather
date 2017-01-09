@@ -59,8 +59,8 @@ public class WeatherServiceTest {
                 .withCity(city)
                 .withSys(new OpenWeatherSys())
                 .withWind(new OpenWeatherWind())
-                .withDetails(new OpenWeatherDetails().withIcon("17n"))
-                .withTemperature(new OpenWeatherTemperature().withValue(temperature));
+                .withWeathers(new OpenWeatherDetails().withIcon("17n"))
+                .withMain(new OpenWeatherTemperature().withTemp(temperature));
 
         when(client.weather(String.format("%s,%s", city, region))).thenReturn(response);
         return client;

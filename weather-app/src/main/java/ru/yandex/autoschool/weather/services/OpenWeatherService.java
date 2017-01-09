@@ -41,8 +41,8 @@ public class OpenWeatherService implements WeatherService {
 
         OpenWeatherResponse response = client.weather(weatherQuery);
 
-        double responseTemperature = response.getTemperature().getValue();
-        OpenWeatherDetails details = response.getDetails().stream()
+        double responseTemperature = response.getMain().getTemp();
+        OpenWeatherDetails details = response.getWeathers().stream()
                 .findFirst().orElse(new OpenWeatherDetails().withId(0));
         return new Weather()
                 .withCity(response.getCity())
@@ -52,7 +52,7 @@ public class OpenWeatherService implements WeatherService {
                 .withSunrise(response.getSys().getSunrise())
                 .withSunset(response.getSys().getSunset())
                 .withWind(response.getWind().getSpeed())
-                .withHumidity(response.getTemperature().getHumidity())
+                .withHumidity(response.getMain().getHumidity())
                 .withTemperatures(
                         new Temperature().withUnit(CELSIUS.toString()).withValue(CELSIUS.fromKelvin(responseTemperature)),
                         new Temperature().withUnit(KELVIN.toString()).withValue(responseTemperature + 10), // +10 - its joke!
