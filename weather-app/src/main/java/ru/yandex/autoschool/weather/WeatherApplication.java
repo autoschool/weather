@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -29,8 +30,10 @@ public class WeatherApplication {
 
     @Bean
     @Profile("prod")
-    public OpenWeatherClient openWeatherClient(@Value("${owm.token}") String token, ObjectMapper mapper) {
-        return OpenWeatherClient.connect(token, mapper);
+    public OpenWeatherClient openWeatherClient(@Value("${owm.token}") String token,
+                                               ObjectMapper mapper,
+                                               CounterService counter) {
+        return OpenWeatherClient.connect(token, mapper, counter);
     }
 
     @Bean

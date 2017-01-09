@@ -39,7 +39,8 @@ public class WeatherServiceTest {
 
     @Test
     public void shouldProvideCityWeatherFromService() {
-        Weather weather = new OpenWeatherService(getMock(CITY, REGION, TEMPERATURE)).getWeather(CITY, REGION);
+        Weather weather = new OpenWeatherService(getMock(CITY, REGION, TEMPERATURE), new NoopCounterService())
+                .getWeather(CITY, REGION);
 
         assertThat(weather, notNullValue());
         assertThat(weather.getCity(), equalTo(CITY));
@@ -47,7 +48,8 @@ public class WeatherServiceTest {
 
     @Test
     public void shouldReturnKelvinPlus10Degree() {
-        Weather weather = new OpenWeatherService(getMock(CITY, REGION, TEMPERATURE)).getWeather(CITY, REGION);
+        Weather weather = new OpenWeatherService(getMock(CITY, REGION, TEMPERATURE), new NoopCounterService())
+                .getWeather(CITY, REGION);
 
         assumeThat(weather, notNullValue());
         assertThat(weather.getTemperatures().stream().map(Temperature::getValue).collect(Collectors.toList()),
@@ -65,4 +67,5 @@ public class WeatherServiceTest {
         when(client.weather(String.format("%s,%s", city, region))).thenReturn(response);
         return client;
     }
+
 }
