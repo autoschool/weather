@@ -56,7 +56,7 @@ public class WeatherServiceTest {
 
     public OpenWeatherClient getMock(String city, String region, double temperature) {
         OpenWeatherResponse response = new OpenWeatherResponse()
-                .withCity(city)
+                .withName(city)
                 .withSys(new OpenWeatherSys())
                 .withWind(new OpenWeatherWind())
                 .withWeathers(new OpenWeatherDetails().withIcon("17n"))

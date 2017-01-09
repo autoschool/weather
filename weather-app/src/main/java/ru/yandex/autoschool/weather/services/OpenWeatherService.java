@@ -45,7 +45,7 @@ public class OpenWeatherService implements WeatherService {
         OpenWeatherDetails details = response.getWeathers().stream()
                 .findFirst().orElse(new OpenWeatherDetails().withId(0));
         return new Weather()
-                .withCity(response.getCity())
+                .withCity(response.getName())
                 .withWeathercode(details.getId())
                 .withDaypart(from(details))
                 .withDt(response.getDt())
