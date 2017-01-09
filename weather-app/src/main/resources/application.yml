@@ -3,4 +3,9 @@ spring:
     active: dev
 
 owm:
-  token: 8d59609d9f7710500ed92e7a199c2d14
+  token: 123
+
+logging:
+  level:
+    ru.yandex.autoschool.weather: DEBUG
+

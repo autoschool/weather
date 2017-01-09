@@ -4,8 +4,7 @@
            xmlns:ns="urn:models.weather.autoschool.yandex.ru"
            targetNamespace="urn:models.weather.autoschool.yandex.ru">
 
-    <xs:element name="weather" type="ns:Weather"/>
-    <xs:complexType name="Weather">
+    <xs:complexType name="weather">
         <xs:sequence>
             <xs:element name="city" type="xs:string"/>
             <xs:element name="daypart" type="ns:Daypart"/>
