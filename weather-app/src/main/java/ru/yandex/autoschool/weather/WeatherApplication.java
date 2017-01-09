@@ -6,6 +6,7 @@ import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
@@ -19,6 +20,7 @@ import ru.yandex.autoschool.weather.clients.OpenWeatherClient;
                 "file:/etc/weather/server/owm.properties"
         }
 )
+@EnableCaching
 public class WeatherApplication {
 
     public static void main(String[] args) {

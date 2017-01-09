@@ -7,6 +7,7 @@ import feign.Param;
 import feign.RequestLine;
 import feign.jackson.JacksonDecoder;
 import feign.slf4j.Slf4jLogger;
+import org.springframework.cache.annotation.Cacheable;
 
 /**
  * eroshenkoam
@@ -15,6 +16,7 @@ import feign.slf4j.Slf4jLogger;
 public interface OpenWeatherClient {
 
     @RequestLine("GET /data/2.5/weather?q={query}")
+    @Cacheable("city")
     OpenWeatherResponse weather(@Param("query") String query);
 
     static OpenWeatherClient connect(String token, ObjectMapper mapper) {

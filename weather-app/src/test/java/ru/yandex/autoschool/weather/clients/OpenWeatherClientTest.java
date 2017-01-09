@@ -27,6 +27,7 @@ public class OpenWeatherClientTest {
         OpenWeatherResponse weatherResponse = client.weather("Saint Petersburg,ru");
 
         assertThat(weatherResponse, notNullValue());
+        assertThat(weatherResponse.getName(), notNullValue());
         assertThat(weatherResponse.getMain(), notNullValue());
         assertThat(weatherResponse.getMain().getTemp(), notNullValue());
         assertThat(weatherResponse.getWeathers(), hasSize(1));
