@@ -5,6 +5,8 @@
 # Maven
 target
 
+.gradle
+
 # PhantomJs
 phantomjsdriver.log
 
@@ -14,3 +16,4 @@ etc
 coverage
 
 owm.properties
+

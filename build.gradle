@@ -1,0 +1,45 @@
+description = 'Provides example for app with bunch of bugs to be testable'
+
+buildscript {
+    ext {
+        springBootVersion = '1.4.3.RELEASE'
+    }
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'maven'
+    apply plugin: 'org.springframework.boot'
+
+    group = 'ru.yandex.autoschool'
+    version = '1.0-SNAPSHOT'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    buildDir = 'target'
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    repositories {
+        jcenter()
+    }
+
+    println project.buildDir
+}
+
+
+
+subprojects {
+
+}
