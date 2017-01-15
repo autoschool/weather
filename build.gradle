@@ -1,24 +1,32 @@
-description = 'Provides example for app with bunch of bugs to be testable'
-
 buildscript {
-    ext {
-        springBootVersion = '1.4.3.RELEASE'
-    }
-
     repositories {
         jcenter()
+        maven { url 'http://repo.spring.io/plugins-release' }
     }
 
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'idea'
+    id 'maven'
+}
+
+description = 'Provides example for app with bunch of bugs to be testable'
+
+jar {
+    from('target/classes/META-INF/resources') {
+        into 'META-INF/resources'
     }
 }
 
 allprojects {
-    apply plugin: 'java'
-    apply plugin: 'idea'
-    apply plugin: 'maven'
-    apply plugin: 'org.springframework.boot'
+    apply plugin: 'propdeps'
+    apply plugin: 'propdeps-maven'
+    apply plugin: 'propdeps-idea'
 
     group = 'ru.yandex.autoschool'
     version = '1.0-SNAPSHOT'
@@ -34,12 +42,5 @@ allprojects {
     repositories {
         jcenter()
     }
-
-    println project.buildDir
-}
-
-
-
-subprojects {
 
 }

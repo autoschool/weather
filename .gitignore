@@ -1,6 +1,8 @@
 # IDEA Files
 .idea
 *.iml
+*.ipr
+*.iws
 
 # Maven
 target
@@ -11,6 +13,7 @@ target
 phantomjsdriver.log
 
 node_modules
+yarn.lock
 node
 etc
 coverage

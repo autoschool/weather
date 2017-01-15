@@ -1,4 +1,4 @@
-import {App} from '../app/app';
+import {App} from '../../main/js/app/app';
 
 describe('app', () => {
 

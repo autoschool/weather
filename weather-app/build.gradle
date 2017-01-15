@@ -1,20 +1,78 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'maven'
+    id 'jacoco'
+    id 'org.springframework.boot' version '1.4.3.RELEASE'
+    id "org.openrepose.gradle.plugins.jaxb" version "2.2.3"
+}
 
 description = 'Weather Test App :: API'
-dependencies {
-    compile group: 'org.projectlombok', name: 'lombok', version:'1.16.12'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'1.4.3.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version:'1.4.3.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jersey', version:'1.4.3.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version:'1.4.3.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.4.3.RELEASE'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.5'
-  compile project(':weather-web')
-    compile group: 'io.github.openfeign', name: 'feign-core', version:'9.4.0'
-    compile group: 'io.github.openfeign', name: 'feign-jackson', version:'9.4.0'
-    compile group: 'io.github.openfeign', name: 'feign-slf4j', version:'9.4.0'
-    runtime group: 'com.h2database', name: 'h2', version:'1.4.193'
-    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.4.3.RELEASE') {
-exclude(module: 'commons-logging')
-    }
-    testCompile group: 'org.springframework.restdocs', name: 'spring-restdocs-mockmvc', version:'1.1.2.RELEASE'
+
+ext {
+    generatedSources = "${project.buildDir.name}/generated-sources/xjc"
 }
+
+dependencyManagement {
+    dependencies {
+        dependency 'org.apache.commons:commons-lang3:3.5'
+        dependencySet(group: 'io.github.openfeign', version: '9.4.0') {
+            entry 'feign-core'
+            entry 'feign-jackson'
+            entry 'feign-slf4j'
+        }
+    }
+}
+
+dependencies {
+    optional 'org.projectlombok:lombok'
+
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa',
+            'org.springframework.boot:spring-boot-starter-jdbc',
+            'org.springframework.boot:spring-boot-starter-jersey',
+            'org.springframework.boot:spring-boot-starter-validation',
+            'org.springframework.boot:spring-boot-starter-web',
+            'org.springframework.boot:spring-boot-starter-actuator',
+            'org.springframework.boot:spring-boot-starter-cache',
+            'org.apache.commons:commons-lang3',
+            'io.github.openfeign:feign-core',
+            'io.github.openfeign:feign-jackson',
+            'io.github.openfeign:feign-slf4j'
+    runtime project(':weather-web'),
+            'com.h2database:h2'
+
+    testCompile('org.springframework.boot:spring-boot-starter-test') {
+        exclude(module: 'commons-logging')
+    }
+    testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:1.1.2.RELEASE'
+
+    jaxb 'org.hibernate:hibernate-entitymanager',
+            'org.slf4j:slf4j-simple',
+            'org.jvnet.jaxb2_commons:jaxb2-basics-ant:0.11.1',
+            'org.jvnet.jaxb2_commons:jaxb2-basics:0.11.1',
+            'org.jvnet.jaxb2_commons:jaxb2-basics-annotate:1.0.2',
+            'com.github.jaxb-xew-plugin:jaxb-xew-plugin:1.5',
+            'net.java.dev.jaxb2-commons:jaxb-fluent-api:2.1.8'
+}
+
+jaxb {
+    xsdDir = "${project.projectDir}/src/main/xsd/"
+    bindingsDir = "${project.projectDir}/src/main/xsd/"
+
+    xjc {
+        taskClassname = "org.jvnet.jaxb2_commons.xjc.XJC2Task"
+        args = [
+                '-no-header',
+                '-Xxew',
+                '-Xxew:instantiate lazy',
+                '-Xinheritance',
+                '-Xxew:plural',
+                '-Xannotate',
+                '-Xfluent-api',
+                '-enableIntrospection'
+        ]
+    }
+}
+
+sourceSets.main.java.srcDirs += "${generatedSources}"
+compileJava.dependsOn xjc
