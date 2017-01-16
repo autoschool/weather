@@ -17,12 +17,6 @@ plugins {
 
 description = 'Provides example for app with bunch of bugs to be testable'
 
-jar {
-    from('target/classes/META-INF/resources') {
-        into 'META-INF/resources'
-    }
-}
-
 allprojects {
     apply plugin: 'propdeps'
     apply plugin: 'propdeps-maven'
