@@ -3,8 +3,10 @@ plugins {
     id 'idea'
     id 'maven'
     id 'jacoco'
+    id 'application'
     id 'org.springframework.boot' version '1.4.3.RELEASE'
     id "org.openrepose.gradle.plugins.jaxb" version "2.2.3"
+    id "nebula.docker" version "1.1.0"
 }
 
 description = 'Weather Test App :: API'
@@ -76,3 +78,19 @@ jaxb {
 
 sourceSets.main.java.srcDirs += "${generatedSources}"
 compileJava.dependsOn xjc
+
+
+startScripts {
+    defaultJvmOpts = ['-Xbootclasspath/a:/etc/weather/server']
+}
+
+nebulaDocker {
+    dockerUrl = 'unix:///var/run/docker.sock'
+    maintainerEmail = 'Merkushev Kirill (github:lanwen)'
+    dockerBase = 'java:8-jre'
+    dockerImage = {
+        volume '/etc/weather/server'
+        exposePort 8080
+        defaultCommand '--spring.profiles.active=prod'
+    }
+}
