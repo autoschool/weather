@@ -27,7 +27,6 @@ allprojects {
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
-    buildDir = 'target'
 
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
@@ -36,5 +35,4 @@ allprojects {
     repositories {
         jcenter()
     }
-
 }

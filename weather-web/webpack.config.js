@@ -7,10 +7,8 @@ const path = require('path');
 const PATHS = {
     build: path.join(
         __dirname,
-        'target',
+        'build',
         'dist'
-        // 'META-INF',
-        // 'resources'
     )
 };
 
