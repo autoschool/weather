@@ -91,6 +91,7 @@ nebulaDocker {
     dockerImage = {
         volume '/etc/weather/server'
         exposePort 8080
+        exposePort 9090
         defaultCommand '--spring.profiles.active=prod'
     }
 }

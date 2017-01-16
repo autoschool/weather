@@ -1,0 +1,9 @@
+version: '2'
+services:
+  weather:
+    build: ./weather-app/build/docker/
+    ports:
+    - "127.0.0.1:8080:8080"
+    - "127.0.0.1:9090:9090"
+    volumes:
+    - /etc/weather/server:/etc/weather/server

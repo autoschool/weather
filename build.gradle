@@ -13,6 +13,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'maven'
+    id "com.avast.gradle.docker-compose" version "0.3.17"
 }
 
 description = 'Provides example for app with bunch of bugs to be testable'
@@ -36,3 +37,6 @@ allprojects {
         jcenter()
     }
 }
+
+composeUp.dependsOn ':weather-app:createDockerfile'
+
