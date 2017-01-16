@@ -7,13 +7,8 @@ const path = require('path');
 const PATHS = {
     build: path.join(
         __dirname,
-        '..',
-        '..',
-        '..',
-        'target',
-        'classes',
-        'META-INF',
-        'resources'
+        'build',
+        'dist'
     )
 };
 
@@ -21,7 +16,7 @@ module.exports = {
     entry: {
         main: [
             'bootstrap-loader/extractStyles',
-            './app/index.js'
+            './src/main/js/app/index.js'
         ],
         vendor: [
             'url',
@@ -55,7 +50,7 @@ module.exports = {
     devtool: 'source-map',
     plugins: [
         new HtmlWebpackPlugin({
-            template: './app/index.tpl.html',
+            template: './src/main/js/app/index.tpl.html',
             inject: 'body'
         }),
         new ExtractTextPlugin('styles.css', {allChunks: true}),

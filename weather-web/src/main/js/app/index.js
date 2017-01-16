@@ -1,5 +1,6 @@
 'use strict';
-import '../node_modules/weather-icons/sass/weather-icons.scss'
+
+import '../../../../node_modules/weather-icons/sass/weather-icons.scss'
 import './index.scss'
 import $ from 'jquery';
 

@@ -1,0 +1,97 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'maven'
+    id 'jacoco'
+    id 'application'
+    id 'org.springframework.boot' version '1.4.3.RELEASE'
+    id "org.openrepose.gradle.plugins.jaxb" version "2.2.3"
+    id "nebula.docker" version "1.1.0"
+}
+
+description = 'Weather Test App :: API'
+
+ext {
+    generatedSources = "${project.buildDir.name}/generated-sources/xjc"
+}
+
+dependencyManagement {
+    dependencies {
+        dependency 'org.apache.commons:commons-lang3:3.5'
+        dependencySet(group: 'io.github.openfeign', version: '9.4.0') {
+            entry 'feign-core'
+            entry 'feign-jackson'
+            entry 'feign-slf4j'
+        }
+    }
+}
+
+dependencies {
+    optional 'org.projectlombok:lombok'
+
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa',
+            'org.springframework.boot:spring-boot-starter-jdbc',
+            'org.springframework.boot:spring-boot-starter-jersey',
+            'org.springframework.boot:spring-boot-starter-validation',
+            'org.springframework.boot:spring-boot-starter-web',
+            'org.springframework.boot:spring-boot-starter-actuator',
+            'org.springframework.boot:spring-boot-starter-cache',
+            'org.apache.commons:commons-lang3',
+            'io.github.openfeign:feign-core',
+            'io.github.openfeign:feign-jackson',
+            'io.github.openfeign:feign-slf4j'
+    runtime project(':weather-web'),
+            'com.h2database:h2'
+
+    testCompile('org.springframework.boot:spring-boot-starter-test') {
+        exclude(module: 'commons-logging')
+    }
+    testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:1.1.2.RELEASE'
+
+    jaxb 'org.hibernate:hibernate-entitymanager',
+            'org.slf4j:slf4j-simple',
+            'org.jvnet.jaxb2_commons:jaxb2-basics-ant:0.11.1',
+            'org.jvnet.jaxb2_commons:jaxb2-basics:0.11.1',
+            'org.jvnet.jaxb2_commons:jaxb2-basics-annotate:1.0.2',
+            'com.github.jaxb-xew-plugin:jaxb-xew-plugin:1.5',
+            'net.java.dev.jaxb2-commons:jaxb-fluent-api:2.1.8'
+}
+
+jaxb {
+    xsdDir = "${project.projectDir}/src/main/xsd/"
+    bindingsDir = "${project.projectDir}/src/main/xsd/"
+
+    xjc {
+        taskClassname = "org.jvnet.jaxb2_commons.xjc.XJC2Task"
+        args = [
+                '-no-header',
+                '-Xxew',
+                '-Xxew:instantiate lazy',
+                '-Xinheritance',
+                '-Xxew:plural',
+                '-Xannotate',
+                '-Xfluent-api',
+                '-enableIntrospection'
+        ]
+    }
+}
+
+sourceSets.main.java.srcDirs += "${generatedSources}"
+compileJava.dependsOn xjc
+
+
+startScripts {
+    defaultJvmOpts = ['-Xbootclasspath/a:/etc/weather/server']
+}
+
+nebulaDocker {
+    dockerUrl = 'unix:///var/run/docker.sock'
+    maintainerEmail = 'Merkushev Kirill (github:lanwen)'
+    dockerBase = 'java:8-jre'
+    dockerImage = {
+        volume '/etc/weather/server'
+        exposePort 8080
+        exposePort 9090
+        defaultCommand '--spring.profiles.active=prod'
+    }
+}

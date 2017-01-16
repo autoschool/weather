@@ -1,0 +1,42 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'http://repo.spring.io/plugins-release' }
+    }
+
+    dependencies {
+        classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'idea'
+    id 'maven'
+    id "com.avast.gradle.docker-compose" version "0.3.17"
+}
+
+description = 'Provides example for app with bunch of bugs to be testable'
+
+allprojects {
+    apply plugin: 'propdeps'
+    apply plugin: 'propdeps-maven'
+    apply plugin: 'propdeps-idea'
+
+    group = 'ru.yandex.autoschool'
+    version = '1.0-SNAPSHOT'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    repositories {
+        jcenter()
+    }
+}
+
+composeUp.dependsOn ':weather-app:createDockerfile'
+
