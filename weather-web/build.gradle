@@ -19,6 +19,7 @@ node {
 }
 
 task bundle(type: YarnTask) {
+    dependsOn yarn_install
     args = ['run', 'build']
 }
 
