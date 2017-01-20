@@ -20,3 +20,4 @@ endpoints:
   metrics:
     enabled: true
 
+owm.token:
