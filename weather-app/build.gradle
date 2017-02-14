@@ -36,6 +36,7 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-web',
             'org.springframework.boot:spring-boot-starter-actuator',
             'org.springframework.boot:spring-boot-starter-cache',
+            'com.github.ben-manes.caffeine:caffeine',
             'org.apache.commons:commons-lang3',
             'io.github.openfeign:feign-core',
             'io.github.openfeign:feign-jackson',
